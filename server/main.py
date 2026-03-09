@@ -1,0 +1,15 @@
+from fastapi import FastAPI
+from database import Base, engine
+from routers import learning, analytics
+
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI()
+
+app.include_router(learning.router, prefix="/learning", tags=["Learning"])
+app.include_router(analytics.router, prefix="/analytics", tags=["Analytics"])
+
+
+@app.get("/")
+def root():
+    return {"message": "Learning_Analytics API"}

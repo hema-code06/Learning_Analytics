@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createEntry } from "../api";
 
-const EntryForm = ({ refresh }) => {
+const EntryModal = ({ refresh }) => {
   const [topic, setTopic] = useState("");
   const [date, setDate] = useState("");
   const [hours, setHours] = useState("");
@@ -57,4 +57,4 @@ const EntryForm = ({ refresh }) => {
   );
 };
 
-export default EntryForm;
+export default EntryModal;

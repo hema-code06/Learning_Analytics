@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStudyTime } from "../api";
+import { getStudyTime } from "../../api";
 
 const StudyTime = () => {
   const [mode, setMode] = useState("daily");

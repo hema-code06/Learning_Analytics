@@ -5,7 +5,7 @@ import EntryForm from "../components/EntryForm";
 import OverviewCards from "../components/OverviewCards";
 import SkillDeveloped from "../components/SkillDeveloped";
 import TopicBreakdown from "../components/TopicBreakdown";
-import StudyTime from "../components/StudyTime";
+import StudyTime from "../components/Charts/StudyTimeChart";
 import StreakCard from "../components/StreakCard";
 import MonthlyGoal from "../components/MonthlyGoal";
 import SmartInsights from "../components/SmartInsights";

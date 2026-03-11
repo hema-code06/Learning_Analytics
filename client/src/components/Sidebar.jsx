@@ -1,6 +1,6 @@
-import EntryList from "./EntryList"
+import React from 'react'
 
-const Sidebar = ({}) => {
+const Sidebar = () => {
   return (
     <div>
       

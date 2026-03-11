@@ -1,84 +1,77 @@
 import { useEffect, useState } from "react";
 
 import DashboardLayout from "../layout/DashboardLayout";
-import EntryForm from "../components/EntryForm";
-import OverviewCards from "../components/OverviewCards";
-import SkillDeveloped from "../components/SkillDeveloped";
-import TopicBreakdown from "../components/TopicBreakdown";
-import StudyTime from "../components/Charts/StudyTimeChart";
-import StreakCard from "../components/StreakCard";
-import MonthlyGoal from "../components/MonthlyGoal";
-import SmartInsights from "../components/SmartInsights";
-import AveragePerformance from "../components/AveragePerformance";
-import ConsistencyScore from "../components/ConsistencyScore";
+
+import Sidebar from "../components/Sidebar";
+import EntryModal from "../components/EntryModal";
+import TopicChart from "../components/Charts/TopicChart";
 
 import {
+  getEntries,
+  deleteEntry,
   getOverview,
   getSkills,
   getTopicBreakdown,
+  getStudyTime,
   getStreak,
   getMonthlyGoal,
   getInsights,
   getAveragePerformance,
   getConsistency,
 } from "../api";
-import { data } from "autoprefixer";
 
 const Dashboard = () => {
-  const [overview, setOverview] = useState({});
-  const [skills, setSkills] = useState([]);
+  const [entries, setEntries] = useState([]);
   const [topics, setTopics] = useState([]);
-  const [streak, setStreak] = useState(0);
-  const [goal, setGoal] = useState({});
-  const [insights, setInsights] = useState({});
-  const [avg, setAvg] = useState(0);
-  const [consistency, setConsistency] = useState(0);
-
+  const [modal, setModal] = useState(false);
+  const [edit, setEdit] = useState(null);
   const load = async () => {
-    const o = await getOverview();
-    const s = await getSkills();
+    const e = await getEntries();
     const t = await getTopicBreakdown();
-    const st = await getStreak();
-    const g = await getMonthlyGoal();
-    const i = await getInsights();
-    const a = await getAveragePerformance();
-    const c = await getConsistency();
 
-    setOverview(o.data);
-    setSkills(s.data);
+    setEntries(e.data);
     setTopics(t.data);
-    setStreak(st.data.streak);
-    setGoal(g.data);
-    setInsights(i.data);
-    setAvg(a.data.average_hours);
-    setConsistency(c.data.consistency_score);
   };
+
   useEffect(() => {
     load();
   }, []);
 
+  const removeEntry = async (id) => {
+    await deleteEntry(id);
+    load();
+  };
+
   return (
-    <DashboardLayout>
-      <EntryForm refresh={load} />
+    <DashboardLayout
+      sidebar={
+        <Sidebar
+          entries={entries}
+          openModal={() => setModal(true)}
+          editEntry={(e) => {
+            setEdit(e);
+            setModal(true);
+          }}
+          removeEntry={removeEntry}
+        />
+      }
+    >
+      <h2 className="text-2xl font-bold mb-6">Analytics Dashboard</h2>
 
-      <OverviewCards overview={overview} />
+      <TopicChart data={topics} />
 
-      <SkillDeveloped skills={skills} />
-
-      <TopicBreakdown topics={topics} />
-
-      <StudyTime />
-
-      <StreakCard streak={streak} />
-
-      <MonthlyGoal goal={goal} />
-
-      <SmartInsights insights={insights} />
-
-      <AveragePerformance avg={avg} />
-
-      <ConsistencyScore score={consistency} />
+      {modal && (
+        <EntryModal
+          close={() => {
+            setModal(false);
+            setEdit(null);
+          }}
+          refresh={load}
+          edit={edit}
+        />
+      )}
     </DashboardLayout>
   );
 };
+
 export default Dashboard;

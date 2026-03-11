@@ -1,6 +1,6 @@
 import { FaTrash, FaEdit } from "react-icons/fa";
 
-const EntryList = (entries, editEntry, removeEntry) => {
+const EntryList = ({ entries, editEntry, removeEntry }) => {
   return (
     <div className="overflow-y-auto">
       {entries.map((e) => (
@@ -19,7 +19,7 @@ const EntryList = (entries, editEntry, removeEntry) => {
             />
             <FaTrash
               className="cursor-pointer text-red-500"
-              onClick={() => removeEntry(e)}
+              onClick={() => removeEntry(e.id)}
             />
           </div>
         </div>

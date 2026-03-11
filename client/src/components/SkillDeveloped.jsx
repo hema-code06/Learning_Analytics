@@ -21,9 +21,9 @@ const SkillDeveloped = ({ skills = [] }) => {
               key={i}
               className="flex justify-between items-center text-sm border-b border-gray-100 pb-1"
             >
-              <span className="text-gray-700 font-medium">{s.skill}</span>
+              <span className="text-gray-700 font-medium">{s.name}</span>
 
-              <span className="text-gray-500">{s.hours} hrs</span>
+              <span className="text-gray-500">{s.value} hrs</span>
             </div>
           ))}
         </div>

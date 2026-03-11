@@ -1,17 +1,41 @@
-import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
+import { useState } from "react";
 
-const StudyTimeChart = ({ data }) => {
-  const chart = data.map((d) => ({
-    date: d[0],
-    hours: d[1],
-  }));
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
+
+const StudyTimeChart = () => {
+  const [mode, setMode] = useState("daily");
+
+  const data = [
+    { name: "Mon", hours: 2 },
+    { name: "Tue", hours: 3 },
+    { name: "Wed", hours: 5 },
+    { name: "Thu", hours: 4 },
+    { name: "Fri", hours: 6 },
+  ];
+
   return (
-    <BarChart width={500} height={250} data={chart}>
-      <XAxis dataKey="date" />
-      <YAxis />
-      <Tooltip />
-      <Bar dataKey="hours" />
-    </BarChart>
+    <div className="bg-white p-6 rounded-xl shadow">
+      <div className="flex justify-between mb-4">
+        <h3 className="font-semibold">Study Time</h3>
+        <select
+          className="border p-1 rounded"
+          value={mode}
+          onChange={(e) => setMode(e.target.value)}
+        >
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={data}>
+          <XAxis dataKey="name" />
+          <Tooltip />
+          <Bar dataKey="hours" />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 

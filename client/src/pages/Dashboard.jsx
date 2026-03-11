@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import DashboardLayout from "../layout/DashboardLayout";
 
@@ -19,7 +20,6 @@ import SmartInsights from "../components/SmartInsights";
 import { getEntries, deleteEntry } from "../api";
 
 const Dashboard = () => {
-
   const [entries, setEntries] = useState([]);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -55,9 +55,10 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     try {
       await deleteEntry(id);
+      toast.success("Entry Deleted..");
       loadEntries();
     } catch (err) {
-      console.error("Delete failed", err);
+      toast.error("Deletion failed!!");
     }
   };
 
@@ -72,9 +73,7 @@ const Dashboard = () => {
         />
       }
     >
-
       <div className="space-y-6">
-
         {/* Row 1 */}
         <OverviewCards />
 
@@ -97,17 +96,11 @@ const Dashboard = () => {
         <div className="grid grid-cols-2 gap-6">
           <AveragePerformance />
         </div>
-
       </div>
 
       {modalOpen && (
-        <EntryModal
-          close={closeModal}
-          refresh={loadEntries}
-          edit={editEntry}
-        />
+        <EntryModal close={closeModal} refresh={loadEntries} edit={editEntry} />
       )}
-
     </DashboardLayout>
   );
 };

@@ -6,11 +6,13 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 
-const StudyTimeChart = ({ data = [] }) => {
+import { motion } from "framer-motion";
 
+const StudyTimeChart = ({ data = [] }) => {
   const [mode, setMode] = useState("daily");
 
   const defaultData = [
@@ -24,13 +26,17 @@ const StudyTimeChart = ({ data = [] }) => {
   const chartData = data.length ? data : defaultData;
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow">
-
-      <div className="flex justify-between mb-4">
-        <h3 className="font-semibold">Study Time</h3>
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition"
+    >
+      <div className="flex justify-between items-center mb-5">
+        <h3 className="font-semibold text-gray-700 text-lg">Study Time</h3>
 
         <select
-          className="border p-1 rounded"
+          className="border border-gray-300 text-sm px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={mode}
           onChange={(e) => setMode(e.target.value)}
         >
@@ -40,16 +46,41 @@ const StudyTimeChart = ({ data = [] }) => {
         </select>
       </div>
 
-      <ResponsiveContainer width="100%" height={200}>
+      <ResponsiveContainer width="100%" height={220}>
         <BarChart data={chartData}>
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="hours" />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false}
+            stroke="#e5e7eb"
+          />
+
+          <XAxis
+            dataKey="name"
+            tick={{ fontSize: 12 }}
+            axisLine={false}
+            tickLine={false}
+          />
+
+          <YAxis tick={{ fontSize: 12 }} axisLine={false} tickLine={false} />
+
+          <Tooltip
+            cursor={{ fill: "#f3f4f6" }}
+            contentStyle={{
+              borderRadius: "8px",
+              border: "none",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            }}
+          />
+
+          <Bar
+            dataKey="hours"
+            fill="#3B82F6"
+            radius={[6, 6, 0, 0]}
+            animationDuration={800}
+          />
         </BarChart>
       </ResponsiveContainer>
-
-    </div>
+    </motion.div>
   );
 };
 

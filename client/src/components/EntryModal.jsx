@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createEntry, updateEntry } from "../api";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const EntryModal = ({ close, refresh, edit }) => {
   const [topic, setTopic] = useState("");
@@ -19,56 +20,83 @@ const EntryModal = ({ close, refresh, edit }) => {
     e.preventDefault();
 
     const data = { topic, date, hours: Number(hours) };
+
     try {
       if (edit) {
         await updateEntry(edit.id, data);
-        toast.success("Entry updated..");
+        toast.success("Entry updated");
       } else {
         await createEntry(data);
-        toast.success("Entry added..");
+        toast.success("Entry added");
       }
 
       refresh();
       close();
     } catch (err) {
-      toast.error("Operation failed!!");
+      toast.error("Operation failed");
       console.error(err);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
-      <form onSubmit={submit} className="bg-white p-6 rounded w-96">
-        <h2 className="text-xl font-bold mb-4">Learning Entry</h2>
+    <div
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
+      onClick={close}
+    >
+      <motion.form
+        onSubmit={submit}
+        onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.25 }}
+        className="bg-white rounded-2xl shadow-xl w-[380px] p-6"
+      >
+        <h2 className="text-xl font-semibold text-gray-800 mb-5">
+          {edit ? "Edit Learning Entry" : "Add Learning Entry"}
+        </h2>
 
         <input
-          placeholder="Topic"
+          placeholder="Topic / Skill"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="border w-full p-2 mb-3"
+          required
+          className="border border-gray-300 rounded-lg w-full px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="border w-full p-2 mb-3"
+          required
+          className="border border-gray-300 rounded-lg w-full px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         <input
           type="number"
+          placeholder="Study Hours"
           value={hours}
           onChange={(e) => setHours(e.target.value)}
-          className="border w-full p-2 mb-4"
+          required
+          className="border border-gray-300 rounded-lg w-full px-3 py-2 mb-5 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <div className="flex justify-end gap-2">
-          <button type="button" onClick={close} className="px-4 py-2 border">
+        <div className="flex justify-end gap-3">
+          <button
+            type="button"
+            onClick={close}
+            className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
+          >
             Cancel
           </button>
 
-          <button className="px-4 py-2 bg-blue-600 text-white">Save</button>
+          <button
+            type="submit"
+            className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+          >
+            Save
+          </button>
         </div>
-      </form>
+      </motion.form>
     </div>
   );
 };

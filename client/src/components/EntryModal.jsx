@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createEntry, updateEntry } from "../api";
+import { toast } from "react-toastify";
 
 const EntryModal = ({ close, refresh, edit }) => {
   const [topic, setTopic] = useState("");
@@ -18,13 +19,21 @@ const EntryModal = ({ close, refresh, edit }) => {
     e.preventDefault();
 
     const data = { topic, date, hours: Number(hours) };
-    if (edit) {
-      await updateEntry(edit.id, data);
-    } else {
-      await createEntry(data);
+    try {
+      if (edit) {
+        await updateEntry(edit.id, data);
+        toast.success("Entry updated..");
+      } else {
+        await createEntry(data);
+        toast.success("Entry added..");
+      }
+
+      refresh();
+      close();
+    } catch (err) {
+      toast.error("Operation failed!!");
+      console.error(err);
     }
-    refresh();
-    close();
   };
 
   return (

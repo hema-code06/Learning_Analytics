@@ -37,19 +37,15 @@ const Dashboard = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editEntry, setEditEntry] = useState(null);
 
-  /* ---------------- analytics states ---------------- */
-
-  const [overview, setOverview] = useState(null);
+  const [overview, setOverview] = useState({});
   const [skills, setSkills] = useState([]);
   const [studyTime, setStudyTime] = useState([]);
   const [topics, setTopics] = useState([]);
-  const [streak, setStreak] = useState(null);
-  const [goal, setGoal] = useState(null);
-  const [consistency, setConsistency] = useState(null);
+  const [streak, setStreak] = useState({ current: 0, best: 0 });
+  const [goal, setGoal] = useState({ progress: 0 });
+  const [consistency, setConsistency] = useState({ score: 0 });
   const [insights, setInsights] = useState([]);
   const [performance, setPerformance] = useState([]);
-
-  /* ---------------- load entries ---------------- */
 
   const loadEntries = async () => {
     try {
@@ -59,8 +55,6 @@ const Dashboard = () => {
       console.error("Error loading entries", err);
     }
   };
-
-  /* ---------------- load analytics ---------------- */
 
   const loadAnalytics = async () => {
     try {
@@ -86,15 +80,15 @@ const Dashboard = () => {
         getAveragePerformance(),
       ]);
 
-      setOverview(overviewRes.data);
-      setSkills(skillsRes.data);
-      setStudyTime(studyRes.data);
-      setTopics(topicRes.data);
-      setStreak(streakRes.data);
-      setGoal(goalRes.data);
-      setConsistency(consistencyRes.data);
-      setInsights(insightRes.data);
-      setPerformance(performanceRes.data);
+      setOverview(overviewRes.data || {});
+      setSkills(skillsRes.data || []);
+      setStudyTime(studyRes.data || []);
+      setTopics(topicRes.data || []);
+      setStreak(streakRes.data || { current: 0, best: 0 });
+      setGoal(goalRes.data || { progress: 0 });
+      setConsistency(consistencyRes.data || { score: 0 });
+      setInsights(insightRes.data || []);
+      setPerformance(performanceRes.data || []);
     } catch (err) {
       console.error("Analytics load failed", err);
     }
@@ -104,8 +98,6 @@ const Dashboard = () => {
     loadEntries();
     loadAnalytics();
   }, []);
-
-  /* ---------------- modal controls ---------------- */
 
   const openModal = () => {
     setEditEntry(null);
@@ -124,12 +116,12 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     try {
       await deleteEntry(id);
-      toast.success("Entry Deleted..");
+      toast.success("Entry Deleted");
 
       loadEntries();
       loadAnalytics();
     } catch (err) {
-      toast.error("Deletion failed!!");
+      toast.error("Deletion failed");
     }
   };
 
@@ -145,25 +137,21 @@ const Dashboard = () => {
       }
     >
       <div className="space-y-6">
-        {/* Row 1 */}
         <OverviewCards data={overview} />
 
-        {/* Row 2 */}
         <div className="grid grid-cols-3 gap-6">
           <SkillDeveloped skills={skills} />
           <StudyTimeChart data={studyTime} />
           <TopicChart data={topics} />
         </div>
 
-        {/* Row 3 */}
         <div className="grid grid-cols-4 gap-6">
-          <StreakCard data={streak} />
-          <MonthlyGoal data={goal} />
-          <ConsistencyScore data={consistency} />
+          <StreakCard current={streak.current} best={streak.best} />
+          <MonthlyGoal progress={goal.progress} />
+          <ConsistencyScore score={consistency.score} />
           <SmartInsights data={insights} />
         </div>
 
-        {/* Row 4 */}
         <div className="grid grid-cols-2 gap-6">
           <AveragePerformance data={performance} />
         </div>

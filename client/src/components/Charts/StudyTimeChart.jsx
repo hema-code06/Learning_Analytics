@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   BarChart,
@@ -11,19 +11,26 @@ import {
 } from "recharts";
 
 import { motion } from "framer-motion";
+import { getStudyTime } from "../../api";
 
 const StudyTimeChart = ({ data = [] }) => {
   const [mode, setMode] = useState("daily");
+  const [chartData, setChartData] = useState([]);
 
-  const defaultData = [
-    { name: "Mon", hours: 2 },
-    { name: "Tue", hours: 3 },
-    { name: "Wed", hours: 5 },
-    { name: "Thu", hours: 4 },
-    { name: "Fri", hours: 6 },
-  ];
+  useEffect(() => {
+    loadChartData();
+  }, [mode]);
 
-  const chartData = data.length ? data : defaultData;
+  const loadChartData = async () => {
+    try {
+      const res = await getStudyTime(mode);
+      setChartData(res.data);
+    } catch (err) {
+      console.error("Failed loading study time analytics", err);
+    }
+  };
+
+  const renderData = chartData.length ? chartData : data;
 
   return (
     <motion.div
@@ -47,7 +54,7 @@ const StudyTimeChart = ({ data = [] }) => {
       </div>
 
       <ResponsiveContainer width="100%" height={220}>
-        <BarChart data={chartData}>
+        <BarChart data={renderData}>
           <CartesianGrid
             strokeDasharray="3 3"
             vertical={false}

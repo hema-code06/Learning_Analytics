@@ -19,14 +19,6 @@ const COLORS = [
 ];
 
 const TopicChart = ({ data = [] }) => {
-  const defaultData = [
-    { name: "React", value: 5 },
-    { name: "Python", value: 3 },
-    { name: "SQL", value: 4 },
-  ];
-
-  const chartData = data.length ? data : defaultData;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -38,33 +30,37 @@ const TopicChart = ({ data = [] }) => {
         Topic Breakdown
       </h3>
 
-      <ResponsiveContainer width="100%" height={240}>
-        <PieChart>
-          <Pie
-            data={chartData}
-            dataKey="value"
-            nameKey="name"
-            outerRadius={85}
-            innerRadius={40}
-            paddingAngle={4}
-            animationDuration={900}
-          >
-            {chartData.map((_, i) => (
-              <Cell key={i} fill={COLORS[i % COLORS.length]} />
-            ))}
-          </Pie>
+      {data.length === 0 ? (
+        <p className="text-gray-400 text-sm">No topic analytics available</p>
+      ) : (
+        <ResponsiveContainer width="100%" height={240}>
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              outerRadius={85}
+              innerRadius={40}
+              paddingAngle={4}
+              animationDuration={900}
+            >
+              {data.map((_, i) => (
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+              ))}
+            </Pie>
 
-          <Tooltip
-            contentStyle={{
-              borderRadius: "8px",
-              border: "none",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            }}
-          />
+            <Tooltip
+              contentStyle={{
+                borderRadius: "8px",
+                border: "none",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+              }}
+            />
 
-          <Legend verticalAlign="bottom" height={36} iconType="circle" />
-        </PieChart>
-      </ResponsiveContainer>
+            <Legend verticalAlign="bottom" height={36} iconType="circle" />
+          </PieChart>
+        </ResponsiveContainer>
+      )}
     </motion.div>
   );
 };

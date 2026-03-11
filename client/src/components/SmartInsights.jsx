@@ -1,21 +1,44 @@
-const SmartInsights = () => {
+import { motion } from "framer-motion";
+import { FaBrain, FaClock, FaFire, FaChartLine } from "react-icons/fa";
+
+const SmartInsights = ({ data = [] }) => {
+  const insights = Array.isArray(data) ? data : [];
+
+  const icons = [
+    <FaFire className="text-orange-500" />,
+    <FaChartLine className="text-purple-500" />,
+    <FaClock className="text-blue-500" />,
+    <FaBrain className="text-green-500" />,
+  ];
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow">
-
-      <h3 className="font-semibold mb-2">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+      className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition"
+    >
+      <h3 className="font-semibold text-gray-700 text-lg mb-4">
         Smart Insights
       </h3>
 
-      <ul className="text-sm space-y-1">
+      {insights.length === 0 ? (
+        <p className="text-gray-400 text-sm">No insights available yet</p>
+      ) : (
+        <ul className="space-y-3">
+          {insights.map((insight, i) => (
+            <li
+              key={i}
+              className="flex items-center gap-3 text-sm text-gray-700"
+            >
+              <span className="text-lg">{icons[i % icons.length]}</span>
 
-        <li>• You study most on Fridays</li>
-        <li>• React is your top skill</li>
-        <li>• Average session: 3 hours</li>
-
-      </ul>
-
-    </div>
+              <span>{insight}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </motion.div>
   );
 };
 

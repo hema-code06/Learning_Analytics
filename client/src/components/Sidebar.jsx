@@ -28,8 +28,6 @@ const Sidebar = ({
 
       {/* Entries List */}
       <div className="flex-1 overflow-y-auto px-5 pb-5">
-        <h3 className="text-sm text-gray-500 mb-3">Learning Entries</h3>
-
         <EntryList
           entries={entries}
           editEntry={editEntry}

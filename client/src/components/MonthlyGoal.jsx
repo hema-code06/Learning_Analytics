@@ -1,6 +1,22 @@
 import { motion } from "framer-motion";
 
-const MonthlyGoal = ({ progress = 75 }) => {
+const MonthlyGoal = ({ data }) => {
+  if (!data || data.progress === undefined) {
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-md">
+        <h3 className="mb-4 font-semibold text-gray-700 text-lg">
+          Monthly Goal
+        </h3>
+
+        <p className="text-gray-400 text-sm">
+          No monthly goal analytics available
+        </p>
+      </div>
+    );
+  }
+
+  const progress = data.progress;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}

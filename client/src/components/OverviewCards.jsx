@@ -1,11 +1,37 @@
 import { motion } from "framer-motion";
 
-const OverviewCards = () => {
+const OverviewCards = ({ data }) => {
+  if (!data) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white p-6 rounded-2xl shadow-md text-gray-400 text-sm">
+          No overview analytics available
+        </div>
+      </div>
+    );
+  }
+
   const cards = [
-    { title: "Learning Hours", value: "120", color: "text-blue-600" },
-    { title: "Skills Developed", value: "8", color: "text-green-600" },
-    { title: "Topics Covered", value: "25", color: "text-purple-600" },
-    { title: "Consistency", value: "82%", color: "text-orange-600" },
+    {
+      title: "Learning Hours",
+      value: data.total_hours,
+      color: "text-blue-600",
+    },
+    {
+      title: "Skills Developed",
+      value: data.skills,
+      color: "text-green-600",
+    },
+    {
+      title: "Topics Covered",
+      value: data.topics,
+      color: "text-purple-600",
+    },
+    {
+      title: "Consistency",
+      value: `${data.consistency}%`,
+      color: "text-orange-600",
+    },
   ];
 
   return (

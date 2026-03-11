@@ -1,10 +1,26 @@
 import { motion } from "framer-motion";
 
-const ConsistencyScore = ({ score = 82 }) => {
+const ConsistencyScore = ({ data }) => {
+  if (!data || data.score === undefined) {
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-md">
+        <h3 className="text-gray-600 font-semibold mb-4">Consistency Score</h3>
+
+        <p className="text-gray-400 text-sm">
+          No consistency analytics available
+        </p>
+      </div>
+    );
+  }
+
+  const score = data.score;
+
   const radius = 60;
   const stroke = 10;
+
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
+
   const strokeDashoffset = circumference - (score / 100) * circumference;
 
   return (

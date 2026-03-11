@@ -1,6 +1,11 @@
 import EntryList from "./EntryList";
 
-const Sidebar = ({ entries, openModal, editEntry, removeEntry }) => {
+const Sidebar = ({
+  entries = [],
+  openModal = () => {},
+  editEntry = () => {},
+  removeEntry = () => {},
+}) => {
   return (
     <div className="w-72 bg-white shadow-lg p-5 flex flex-col">
       <h1 className="text-2xl font-bold mb-6">Learning Analytics</h1>

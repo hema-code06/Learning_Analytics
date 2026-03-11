@@ -1,8 +1,14 @@
-const ConsistencyScore = ({ score }) => {
+const ConsistencyScore = () => {
+
   return (
-    <div className="bg-white p-4 shadow mb-6">
-      <h2 className="font-bold">Consistency Score</h2>
-      <p>{score}%</p>
+    <div className="bg-white p-6 rounded-xl shadow">
+
+      <h3 className="text-gray-500">Consistency Score</h3>
+
+      <p className="text-3xl font-bold mt-2">
+        82%
+      </p>
+
     </div>
   );
 };

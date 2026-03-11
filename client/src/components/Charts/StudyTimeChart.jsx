@@ -1,11 +1,19 @@
 import { useState } from "react";
 
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 
-const StudyTimeChart = () => {
+const StudyTimeChart = ({ data = [] }) => {
+
   const [mode, setMode] = useState("daily");
 
-  const data = [
+  const defaultData = [
     { name: "Mon", hours: 2 },
     { name: "Tue", hours: 3 },
     { name: "Wed", hours: 5 },
@@ -13,10 +21,14 @@ const StudyTimeChart = () => {
     { name: "Fri", hours: 6 },
   ];
 
+  const chartData = data.length ? data : defaultData;
+
   return (
     <div className="bg-white p-6 rounded-xl shadow">
+
       <div className="flex justify-between mb-4">
         <h3 className="font-semibold">Study Time</h3>
+
         <select
           className="border p-1 rounded"
           value={mode}
@@ -29,12 +41,14 @@ const StudyTimeChart = () => {
       </div>
 
       <ResponsiveContainer width="100%" height={200}>
-        <BarChart data={data}>
+        <BarChart data={chartData}>
           <XAxis dataKey="name" />
+          <YAxis />
           <Tooltip />
           <Bar dataKey="hours" />
         </BarChart>
       </ResponsiveContainer>
+
     </div>
   );
 };

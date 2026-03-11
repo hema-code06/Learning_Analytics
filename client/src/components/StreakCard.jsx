@@ -1,8 +1,8 @@
-const StreakCard = ({ streak }) => {
+const StreakCard = () => {
   return (
-    <div className="bg-white p-4 shadow mb-6">
-      <h2 className="font-bold">Current Streak</h2>
-      <p className="text-2xl font-bold">{streak} days</p>
+    <div className="bg-white p-6 rounded-xl shadow">
+      <h3 className="text-gray-500">Current Streak</h3>
+      <p className="text-3xl font-bold mt-2">12 days</p>
     </div>
   );
 };

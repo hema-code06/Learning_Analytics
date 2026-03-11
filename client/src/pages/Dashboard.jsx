@@ -4,42 +4,61 @@ import DashboardLayout from "../layout/DashboardLayout";
 
 import Sidebar from "../components/Sidebar";
 import EntryModal from "../components/EntryModal";
+
+import OverviewCards from "../components/OverviewCards";
+import AveragePerformance from "../components/AveragePerformance";
+import SkillDeveloped from "../components/SkillDeveloped";
+import StudyTimeChart from "../components/Charts/StudyTimeChart";
 import TopicChart from "../components/Charts/TopicChart";
 
-import {
-  getEntries,
-  deleteEntry,
-  getOverview,
-  getSkills,
-  getTopicBreakdown,
-  getStudyTime,
-  getStreak,
-  getMonthlyGoal,
-  getInsights,
-  getAveragePerformance,
-  getConsistency,
-} from "../api";
+import StreakCard from "../components/StreakCard";
+import MonthlyGoal from "../components/MonthlyGoal";
+import ConsistencyScore from "../components/ConsistencyScore";
+import SmartInsights from "../components/SmartInsights";
+
+import { getEntries, deleteEntry } from "../api";
 
 const Dashboard = () => {
-  const [entries, setEntries] = useState([]);
-  const [topics, setTopics] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [edit, setEdit] = useState(null);
-  const load = async () => {
-    const e = await getEntries();
-    const t = await getTopicBreakdown();
 
-    setEntries(e.data);
-    setTopics(t.data);
+  const [entries, setEntries] = useState([]);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editEntry, setEditEntry] = useState(null);
+
+  const loadEntries = async () => {
+    try {
+      const res = await getEntries();
+      setEntries(res.data);
+    } catch (err) {
+      console.error("Error loading entries", err);
+    }
   };
 
   useEffect(() => {
-    load();
+    loadEntries();
   }, []);
 
-  const removeEntry = async (id) => {
-    await deleteEntry(id);
-    load();
+  const openModal = () => {
+    setEditEntry(null);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleEdit = (entry) => {
+    setEditEntry(entry);
+    setModalOpen(true);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteEntry(id);
+      loadEntries();
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
   };
 
   return (
@@ -47,29 +66,48 @@ const Dashboard = () => {
       sidebar={
         <Sidebar
           entries={entries}
-          openModal={() => setModal(true)}
-          editEntry={(e) => {
-            setEdit(e);
-            setModal(true);
-          }}
-          removeEntry={removeEntry}
+          openModal={openModal}
+          editEntry={handleEdit}
+          removeEntry={handleDelete}
         />
       }
     >
-      <h2 className="text-2xl font-bold mb-6">Analytics Dashboard</h2>
 
-      <TopicChart data={topics} />
+      <div className="space-y-6">
 
-      {modal && (
+        {/* Row 1 */}
+        <OverviewCards />
+
+        {/* Row 2 */}
+        <div className="grid grid-cols-3 gap-6">
+          <SkillDeveloped />
+          <StudyTimeChart />
+          <TopicChart />
+        </div>
+
+        {/* Row 3 */}
+        <div className="grid grid-cols-4 gap-6">
+          <StreakCard />
+          <MonthlyGoal />
+          <ConsistencyScore />
+          <SmartInsights />
+        </div>
+
+        {/* Row 4 */}
+        <div className="grid grid-cols-2 gap-6">
+          <AveragePerformance />
+        </div>
+
+      </div>
+
+      {modalOpen && (
         <EntryModal
-          close={() => {
-            setModal(false);
-            setEdit(null);
-          }}
-          refresh={load}
-          edit={edit}
+          close={closeModal}
+          refresh={loadEntries}
+          edit={editEntry}
         />
       )}
+
     </DashboardLayout>
   );
 };

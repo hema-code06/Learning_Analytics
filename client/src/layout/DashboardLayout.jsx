@@ -1,9 +1,11 @@
-const DashboardLayout = ({ sidebar, children }) => {
+import Sidebar from "../components/Sidebar";
+
+const DashboardLayout = ({ children }) => {
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {sidebar}
+      <sidebar />
 
-      <div className="flex-1 p-8 overflow-y-auto">{children}</div>
+      <main className="flex-1 p-8 overflow-y-auto">{children}</main>
     </div>
   );
 };

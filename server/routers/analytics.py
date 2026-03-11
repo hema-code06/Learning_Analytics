@@ -31,10 +31,19 @@ def skill_developed(db: Session = Depends(get_db)):
 
 @router.get("/topic-breakdown")
 def topic_breakdown(db: Session = Depends(get_db)):
-    return db.query(
+
+    results = db.query(
         models.LearningEntry.topic,
         func.count(models.LearningEntry.id)
     ).group_by(models.LearningEntry.topic).all()
+
+    return [
+        {
+            "topic": r[0],
+            "count": r[1]
+        }
+        for r in results
+    ]
 
 
 @router.get("/study-time")

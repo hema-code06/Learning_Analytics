@@ -7,8 +7,10 @@ const MonthlyGoal = ({ data, refresh }) => {
 
   if (!data) return null;
 
-  const progress =
-    data.goal > 0 ? Math.min((data.completed / data.goal) * 100, 100) : 0;
+  const goal = Number(data.goal) || 0;
+  const completed = Number(data.completed) || 0;
+
+  const progress = goal > 0 ? Math.min((completed / goal) * 100, 100) : 0;
 
   const saveGoal = async () => {
     if (!goalInput) return;

@@ -147,7 +147,7 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-4 gap-6">
           <StreakCard current={streak.current} best={streak.best} />
-          <MonthlyGoal data={goal} />
+          <MonthlyGoal data={goal} refresh={loadAnalytics} />
           <ConsistencyScore data={consistency} />
           <SmartInsights data={insights} />
         </div>

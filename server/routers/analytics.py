@@ -157,15 +157,16 @@ def monthly_goal(db: Session = Depends(get_db)):
     if not goal:
         return {"goal": 0, "completed": 0}
 
-    hours = db.query(func.sum(models.LearningEntry.hours))\
-        .filter(
-            func.date_trunc('month', models.LearningEntry.date) ==
-            func.date_trunc('month', func.current_date())
+    today = date.today()
+
+    hours = db.query(func.sum(models.LearningEntry.hours)).filter(
+        func.extract("month", models.LearningEntry.date) == today.month,
+        func.extract("year", models.LearningEntry.date) == today.year
     ).scalar() or 0
 
     return {
-        "goal": goal.goal_hours,
-        "completed": hours
+        "goal": float(goal.goal_hours),
+        "completed": float(hours)
     }
 
 

@@ -2,18 +2,20 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { setMonthlyGoal } from "../api";
 
-const MonthlyGoal = ({ data }) => {
+const MonthlyGoal = ({ data, refresh }) => {
   const [goalInput, setGoalInput] = useState("");
 
   if (!data) return null;
 
-  const progress = Math.min((data.completed / data.goal) * 100, 100);
+  const progress =
+    data.goal > 0 ? Math.min((data.completed / data.goal) * 100, 100) : 0;
 
   const saveGoal = async () => {
     if (!goalInput) return;
 
     await setMonthlyGoal(Number(goalInput));
-    window.location.reload(); // simple refresh
+    setGoalInput("");
+    refresh();
   };
 
   return (
@@ -25,7 +27,6 @@ const MonthlyGoal = ({ data }) => {
     >
       <h3 className="font-semibold text-gray-700 text-lg mb-3">Monthly Goal</h3>
 
-      {/* Goal Input */}
       <div className="flex gap-2 mb-4">
         <input
           type="number"
@@ -43,7 +44,6 @@ const MonthlyGoal = ({ data }) => {
         </button>
       </div>
 
-      {/* Progress */}
       <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
         <motion.div
           initial={{ width: 0 }}

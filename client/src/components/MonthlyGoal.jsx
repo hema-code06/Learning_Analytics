@@ -16,6 +16,7 @@ const MonthlyGoal = ({ data, refresh }) => {
     if (!goalInput) return;
 
     await setMonthlyGoal(Number(goalInput));
+    console.log("MonthlyGoal data:", data);
     setGoalInput("");
     refresh();
   };

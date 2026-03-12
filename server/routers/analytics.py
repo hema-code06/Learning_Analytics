@@ -8,7 +8,6 @@ from typing import List, Dict
 
 router = APIRouter()
 
-
 @router.get("/overview")
 def learning_overview(db: Session = Depends(get_db)):
     total_hours = db.query(func.sum(models.LearningEntry.hours)).scalar() or 0
@@ -152,16 +151,37 @@ def streak(db: Session = Depends(get_db)):
 @router.get("/monthly-goal")
 def monthly_goal(db: Session = Depends(get_db)):
 
-    hours = db.query(func.sum(models.LearningEntry.hours))\
-        .filter(func.date_trunc('month', models.LearningEntry.date) == func.date_trunc('month', func.current_date()))\
-        .scalar() or 0
+    goal = db.query(models.MonthlyGoal).first()
 
-    goal = 50
+    if not goal:
+        return {"goal": 0, "completed": 0}
+
+    hours = db.query(func.sum(models.LearningEntry.hours))\
+        .filter(
+            func.date_trunc('month', models.LearningEntry.date) ==
+            func.date_trunc('month', func.current_date())
+    ).scalar() or 0
 
     return {
-        "goal": goal,
+        "goal": goal.goal_hours,
         "completed": hours
     }
+
+
+@router.post("/monthly-goal")
+def set_monthly_goal(goal: GoalUpdate, db: Session = Depends(get_db)):
+
+    existing = db.query(models.MonthlyGoal).first()
+
+    if existing:
+        existing.goal_hours = goal.goal
+    else:
+        existing = models.MonthlyGoal(goal_hours=goal.goal)
+        db.add(existing)
+
+    db.commit()
+
+    return {"goal": goal.goal}
 
 
 @router.get("/insights")

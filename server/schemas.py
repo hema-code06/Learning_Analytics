@@ -16,3 +16,7 @@ class LearningResponse(BaseModel):
 
     class config:
         orm_mode = True
+        
+    
+class GoalUpdate(BaseModel):
+    goal: float

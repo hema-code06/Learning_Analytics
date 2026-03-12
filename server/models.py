@@ -9,3 +9,10 @@ class LearningEntry(Base):
     topic = Column(String, nullable=False)
     date = Column(Date, nullable=False)
     hours = Column(Float, nullable=False)
+
+
+class MonthlyGoal(Base):
+    __tablename__ = "monthly_goals"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    goal_hours = Column(Float)

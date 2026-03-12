@@ -15,6 +15,8 @@ export const getStudyTime = (mode) =>
   API.get(`/analytics/study-time?mode=${mode}`);
 export const getStreak = () => API.get("/analytics/streak");
 export const getMonthlyGoal = () => API.get("/analytics/monthly-goal");
+export const setMonthlyGoal = (goal) =>
+  API.post("/analytics/monthly-goal", { goal });
 export const getInsights = () => API.get("/analytics/insights");
 export const getAveragePerformance = () =>
   API.get("/analytics/average-performance");

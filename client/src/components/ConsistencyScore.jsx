@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const ConsistencyScore = ({ data }) => {
-  if (!data || data.score === undefined) {
+  if (!data || data.consistency_score === undefined) {
     return (
       <div className="bg-white p-6 rounded-2xl shadow-md">
         <h3 className="text-gray-600 font-semibold mb-4">Consistency Score</h3>
@@ -13,7 +13,7 @@ const ConsistencyScore = ({ data }) => {
     );
   }
 
-  const score = data.score;
+  const score = Number(data?.consistency_score || 0);
 
   const radius = 60;
   const stroke = 10;
@@ -56,7 +56,7 @@ const ConsistencyScore = ({ data }) => {
         />
       </svg>
 
-      <p className="text-3xl font-bold text-gray-800">{score}%</p>
+      <p className="text-3xl font-bold text-gray-800">{score.toFixed(1)}%</p>
     </motion.div>
   );
 };

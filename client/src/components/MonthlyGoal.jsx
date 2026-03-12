@@ -1,41 +1,61 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { setMonthlyGoal } from "../api";
 
 const MonthlyGoal = ({ data }) => {
-  if (!data || data.progress === undefined) {
-    return (
-      <div className="bg-white p-6 rounded-2xl shadow-md">
-        <h3 className="mb-4 font-semibold text-gray-700 text-lg">
-          Monthly Goal
-        </h3>
+  const [goalInput, setGoalInput] = useState("");
 
-        <p className="text-gray-400 text-sm">
-          No monthly goal analytics available
-        </p>
-      </div>
-    );
-  }
+  if (!data) return null;
 
-  const progress = data.progress;
+  const progress = Math.min((data.completed / data.goal) * 100, 100);
+
+  const saveGoal = async () => {
+    if (!goalInput) return;
+
+    await setMonthlyGoal(Number(goalInput));
+    window.location.reload(); // simple refresh
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition"
+      className="bg-white p-5 rounded-2xl shadow-md hover:shadow-lg transition"
     >
-      <h3 className="mb-4 font-semibold text-gray-700 text-lg">Monthly Goal</h3>
+      <h3 className="font-semibold text-gray-700 text-lg mb-3">Monthly Goal</h3>
 
-      <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+      {/* Goal Input */}
+      <div className="flex gap-2 mb-4">
+        <input
+          type="number"
+          placeholder="Hours"
+          value={goalInput}
+          onChange={(e) => setGoalInput(e.target.value)}
+          className="border rounded-lg px-3 py-1 text-sm w-full"
+        />
+
+        <button
+          onClick={saveGoal}
+          className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm"
+        >
+          Save
+        </button>
+      </div>
+
+      {/* Progress */}
+      <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.8 }}
-          className="bg-green-500 h-3 rounded-full"
+          className="bg-green-500 h-2"
         />
       </div>
 
-      <p className="text-sm text-gray-600 mt-3">{progress}% completed</p>
+      <p className="text-xs text-gray-600 mt-2">
+        {data.completed} / {data.goal} hrs
+      </p>
     </motion.div>
   );
 };

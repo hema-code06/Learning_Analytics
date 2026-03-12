@@ -43,7 +43,7 @@ const Dashboard = () => {
   const [topics, setTopics] = useState([]);
   const [streak, setStreak] = useState({ current: 0, best: 0 });
   const [goal, setGoal] = useState({ progress: 0 });
-  const [consistency, setConsistency] = useState({ score: 0 });
+  const [consistency, setConsistency] = useState(null);
   const [insights, setInsights] = useState([]);
   const [performance, setPerformance] = useState([]);
 
@@ -86,7 +86,7 @@ const Dashboard = () => {
       setTopics(topicRes.data || []);
       setStreak(streakRes.data || { current: 0, best: 0 });
       setGoal(goalRes.data || { progress: 0 });
-      setConsistency(consistencyRes.data || { score: 0 });
+      setConsistency(consistencyRes.data);
       setInsights(insightRes.data || []);
       setPerformance(performanceRes.data || []);
     } catch (err) {
@@ -147,8 +147,8 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-4 gap-6">
           <StreakCard current={streak.current} best={streak.best} />
-          <MonthlyGoal progress={goal.progress} />
-          <ConsistencyScore score={consistency.score} />
+          <MonthlyGoal data={goal} />
+          <ConsistencyScore data={consistency} />
           <SmartInsights data={insights} />
         </div>
 

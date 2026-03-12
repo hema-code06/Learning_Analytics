@@ -116,15 +116,42 @@ def average_performance(db: Session = Depends(get_db)):
 
 @router.get("/consistency")
 def consistency_score(db: Session = Depends(get_db)):
-    total_days = db.query(func.count(func.distinct(
-        models.LearningEntry.date))).scalar() or 0
-    total_entries = db.query(models.LearningEntry).count()
 
-    score = 0
-    if total_entries > 0:
-        score = round((total_days / total_entries) * 100, 2)
+    today = date.today()
 
-    return {"consistency_score": score}
+    # first day of month
+    start_of_month = today.replace(day=1)
+
+    # number of days passed this month
+    days_passed = today.day
+
+    # unique learning days this month
+    learning_days = db.query(
+        func.count(func.distinct(models.LearningEntry.date))
+    ).filter(
+        models.LearningEntry.date >= start_of_month,
+        models.LearningEntry.date <= today
+    ).scalar() or 0
+
+    score = round((learning_days / days_passed) * 100, 2)
+
+    message = ""
+
+    if score >= 80:
+        message = "🔥 Amazing consistency!"
+    elif score >= 40:
+        message = "💪 You're doing great, keep pushing!"
+    elif score >= 20:
+        message = "⚡ Not bad, try to study a little more often!"
+    else:
+        message = "🚀 Small steps daily will build your streak!"
+
+    return {
+        "score": score,
+        "learning_days": learning_days,
+        "days_passed": days_passed,
+        "message": message
+    }
 
 
 @router.get("/streak")

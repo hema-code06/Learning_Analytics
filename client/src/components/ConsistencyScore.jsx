@@ -1,7 +1,16 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 const ConsistencyScore = ({ data }) => {
-  if (!data || data.consistency_score === undefined) {
+  console.log("Consistency data:", data);
+
+  useEffect(() => {
+    if (data?.message) {
+      toast.info(data.message);
+    }
+  }, [data]);
+  if (!data || data.score === undefined) {
     return (
       <div className="bg-white p-6 rounded-2xl shadow-md">
         <h3 className="text-gray-600 font-semibold mb-4">Consistency Score</h3>
@@ -13,7 +22,7 @@ const ConsistencyScore = ({ data }) => {
     );
   }
 
-  const score = Number(data?.consistency_score || 0);
+  const score = Number(data?.score || 0);
 
   const radius = 60;
   const stroke = 10;
@@ -57,6 +66,9 @@ const ConsistencyScore = ({ data }) => {
       </svg>
 
       <p className="text-3xl font-bold text-gray-800">{score.toFixed(1)}%</p>
+      <p className="text-sm text-gray-500 mt-1">
+        {data.learning_days} / {data.days_passed} recent active days 
+      </p>
     </motion.div>
   );
 };

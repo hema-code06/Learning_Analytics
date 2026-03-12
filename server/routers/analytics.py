@@ -4,9 +4,10 @@ from sqlalchemy import func
 from database import get_db
 import models
 from datetime import date, timedelta
-from typing import List, Dict
+from schemas import GoalUpdate
 
 router = APIRouter()
+
 
 @router.get("/overview")
 def learning_overview(db: Session = Depends(get_db)):
@@ -176,8 +177,8 @@ def set_monthly_goal(goal: GoalUpdate, db: Session = Depends(get_db)):
     if existing:
         existing.goal_hours = goal.goal
     else:
-        existing = models.MonthlyGoal(goal_hours=goal.goal)
-        db.add(existing)
+        new_goal = models.MonthlyGoal(goal_hours=goal.goal)
+        db.add(new_goal)
 
     db.commit()
 

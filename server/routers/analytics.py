@@ -84,8 +84,6 @@ def study_time(mode: str = "daily", db: Session = Depends(get_db)):
             }
             for r in results
         ]
-
-    # DAILY (default)
     results = db.query(
         models.LearningEntry.date,
         func.sum(models.LearningEntry.hours)
@@ -101,31 +99,12 @@ def study_time(mode: str = "daily", db: Session = Depends(get_db)):
     ]
 
 
-@router.get("/average-performance")
-def average_performance(db: Session = Depends(get_db)):
-
-    avg = db.query(func.avg(models.LearningEntry.hours)).scalar() or 0
-
-    completed = min(avg * 10, 100)
-
-    return [
-        {"name": "Completed", "value": completed},
-        {"name": "Remaining", "value": 100 - completed}
-    ]
-
-
 @router.get("/consistency")
 def consistency_score(db: Session = Depends(get_db)):
 
     today = date.today()
-
-    # first day of month
     start_of_month = today.replace(day=1)
-
-    # number of days passed this month
     days_passed = today.day
-
-    # unique learning days this month
     learning_days = db.query(
         func.count(func.distinct(models.LearningEntry.date))
     ).filter(
@@ -143,8 +122,6 @@ def consistency_score(db: Session = Depends(get_db)):
         message = "💪 You're doing great, keep pushing!"
     elif score >= 20:
         message = "⚡ Not bad, try to study a little more often!"
-    else:
-        message = "🚀 Small steps daily will build your streak!"
 
     return {
         "score": score,
@@ -211,6 +188,8 @@ def set_monthly_goal(goal: GoalUpdate, db: Session = Depends(get_db)):
 @router.get("/insights")
 def smart_insights(db: Session = Depends(get_db)):
 
+    insights = []
+
     most_topic = db.query(
         models.LearningEntry.topic,
         func.sum(models.LearningEntry.hours)
@@ -218,9 +197,22 @@ def smart_insights(db: Session = Depends(get_db)):
      .order_by(func.sum(models.LearningEntry.hours).desc())\
      .first()
 
-    insights = []
-
     if most_topic:
-        insights.append(f"{most_topic[0]} is your top skill")
+        insights.append(
+            f"🔥 {most_topic[0]} is your strongest skill right now!")
+
+    total_hours = db.query(func.sum(models.LearningEntry.hours)).scalar()
+
+    if total_hours:
+        insights.append(
+            f"⏱ You've invested {int(total_hours)} hours in learning.")
+
+    topics_count = db.query(models.LearningEntry.topic).distinct().count()
+
+    if topics_count:
+        insights.append(f"🧠 You're exploring {topics_count} different skills!")
+
+    if not insights:
+        insights.append("Start logging your learning to see insights 🚀")
 
     return insights

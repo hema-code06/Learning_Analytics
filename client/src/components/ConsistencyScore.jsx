@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
 const ConsistencyScore = ({ data }) => {
-  console.log("Consistency data:", data);
-
   useEffect(() => {
     if (data?.message) {
       toast.info(data.message);
@@ -67,7 +65,7 @@ const ConsistencyScore = ({ data }) => {
 
       <p className="text-3xl font-bold text-gray-800">{score.toFixed(1)}%</p>
       <p className="text-sm text-gray-500 mt-1">
-        {data.learning_days} / {data.days_passed} recent active days 
+        {data.learning_days} / {data.days_passed} recent active days
       </p>
     </motion.div>
   );

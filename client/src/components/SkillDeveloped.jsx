@@ -1,6 +1,21 @@
 import { motion } from "framer-motion";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  ResponsiveContainer,
+} from "recharts";
 
 const SkillDeveloped = ({ skills = [] }) => {
+  if (!skills || skills.length === 0) {
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-md text-gray-400 text-sm">
+        No skills analytics available
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -8,26 +23,30 @@ const SkillDeveloped = ({ skills = [] }) => {
       transition={{ duration: 0.35 }}
       className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition"
     >
-      <h2 className="font-semibold text-gray-700 text-lg mb-4">
-        Skills Developed
-      </h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="font-semibold text-gray-700 text-lg">
+          Skills Developed
+        </h2>
+      </div>
 
-      {skills.length === 0 ? (
-        <p className="text-gray-400 text-sm">No skills analytics available</p>
-      ) : (
-        <div className="space-y-2">
-          {skills.map((s, i) => (
-            <div
-              key={i}
-              className="flex justify-between items-center text-sm border-b border-gray-100 pb-1"
-            >
-              <span className="text-gray-700 font-medium">{s.name}</span>
+      <ResponsiveContainer width="100%" height={220}>
+        <RadarChart data={skills}>
+          <PolarGrid stroke="#E5E7EB" />
 
-              <span className="text-gray-500">{s.value} hrs</span>
-            </div>
-          ))}
-        </div>
-      )}
+          <PolarAngleAxis
+            dataKey="name"
+            tick={{ fontSize: 12, fill: "#6B7280" }}
+          />
+
+          <Radar
+            name="Skill"
+            dataKey="value"
+            stroke="#3B82F6"
+            fill="#3B82F6"
+            fillOpacity={0.4}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
     </motion.div>
   );
 };

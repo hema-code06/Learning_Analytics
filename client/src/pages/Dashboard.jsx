@@ -5,9 +5,8 @@ import DashboardLayout from "../layout/DashboardLayout";
 
 import Sidebar from "../components/Sidebar";
 import EntryModal from "../components/EntryModal";
-
+import LearningOverview from "../components/LearningOverview";
 import OverviewCards from "../components/OverviewCards";
-import AveragePerformance from "../components/AveragePerformance";
 import SkillDeveloped from "../components/SkillDeveloped";
 import StudyTimeChart from "../components/Charts/StudyTimeChart";
 import TopicChart from "../components/Charts/TopicChart";
@@ -28,7 +27,6 @@ import {
   getMonthlyGoal,
   getConsistency,
   getInsights,
-  getAveragePerformance,
 } from "../api";
 
 const Dashboard = () => {
@@ -45,7 +43,6 @@ const Dashboard = () => {
   const [goal, setGoal] = useState({ progress: 0 });
   const [consistency, setConsistency] = useState(null);
   const [insights, setInsights] = useState([]);
-  const [performance, setPerformance] = useState([]);
 
   const loadEntries = async () => {
     try {
@@ -67,7 +64,6 @@ const Dashboard = () => {
         goalRes,
         consistencyRes,
         insightRes,
-        performanceRes,
       ] = await Promise.all([
         getOverview(),
         getSkills(),
@@ -77,7 +73,6 @@ const Dashboard = () => {
         getMonthlyGoal(),
         getConsistency(),
         getInsights(),
-        getAveragePerformance(),
       ]);
 
       setOverview(overviewRes.data || {});
@@ -88,7 +83,6 @@ const Dashboard = () => {
       setGoal(goalRes.data || { progress: 0 });
       setConsistency(consistencyRes.data);
       setInsights(insightRes.data || []);
-      setPerformance(performanceRes.data || []);
     } catch (err) {
       console.error("Analytics load failed", err);
     }
@@ -137,7 +131,16 @@ const Dashboard = () => {
       }
     >
       <div className="space-y-6">
-        <OverviewCards data={overview} />
+        <OverviewCards
+          data={{
+            ...overview,
+            skills: skills.length,
+            topics: topics.length,
+            score: consistency?.score || 0,
+          }}
+        />
+
+        <LearningOverview overview={overview} studyTime={studyTime} />
 
         <div className="grid grid-cols-3 gap-6">
           <SkillDeveloped skills={skills} />
@@ -150,10 +153,6 @@ const Dashboard = () => {
           <MonthlyGoal data={goal} refresh={loadAnalytics} />
           <ConsistencyScore data={consistency} />
           <SmartInsights data={insights} />
-        </div>
-
-        <div className="grid grid-cols-2 gap-6">
-          <AveragePerformance data={performance} />
         </div>
       </div>
 

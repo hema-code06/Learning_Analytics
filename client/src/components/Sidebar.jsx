@@ -9,12 +9,11 @@ const Sidebar = ({
 }) => {
   return (
     <div className="w-72 bg-white border-r shadow-sm flex flex-col h-screen sticky top-0">
-      {/* App Title */}
-      <div className="p-6 border-b">
-        <h1 className="text-xl font-bold text-gray-800">Learning Analytics</h1>
+      <div className="flex p-6 border-b items-center gap-2">
+        <img src="/logo_analytics.png" alt="logo" className="w-8 h-8" />
+        <h1 className="text-xl font-bold text-gray-800">Learnlytics</h1>
       </div>
 
-      {/* Add Entry Button */}
       <div className="p-5">
         <motion.button
           whileHover={{ scale: 1.02 }}
@@ -26,7 +25,6 @@ const Sidebar = ({
         </motion.button>
       </div>
 
-      {/* Entries List */}
       <div className="flex-1 overflow-y-auto px-5 pb-5">
         <EntryList
           entries={entries}

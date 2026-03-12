@@ -14,23 +14,23 @@ const OverviewCards = ({ data }) => {
   const cards = [
     {
       title: "Learning Hours",
-      value: data.total_hours,
+      value: data.total_hours ?? 0,
       color: "text-blue-600",
     },
     {
       title: "Skills Developed",
-      value: data.skills,
-      color: "text-green-600",
+      value: data.skills ?? 0,
+      color: "text-blue-600",
     },
     {
       title: "Topics Covered",
-      value: data.topics,
-      color: "text-purple-600",
+      value: data.topics ?? 0,
+      color: "text-blue-600",
     },
     {
       title: "Consistency",
-      value: `${data.consistency}%`,
-      color: "text-orange-600",
+      value: `${data.score ?? 0}%`,
+      color: "text-green-600",
     },
   ];
 

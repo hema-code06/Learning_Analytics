@@ -1,10 +1,7 @@
 const DashboardLayout = ({ sidebar, children }) => {
   return (
     <div className="flex min-h-screen bg-gray-100 text-gray-800">
-      {/* Sidebar */}
       <aside className="h-screen sticky top-0">{sidebar}</aside>
-
-      {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
         <div className="p-8 max-w-7xl mx-auto">{children}</div>
       </main>

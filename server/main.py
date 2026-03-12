@@ -1,6 +1,6 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from database import Base, engine
 from routers import learning, analytics
 
@@ -10,6 +10,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
+    os.getenv("FRONTEND_URL", "https://your-netlify-site.netlify.app")
 ]
 app.add_middleware(
     CORSMiddleware,

@@ -1,4 +1,3 @@
-import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import Base, engine
@@ -10,7 +9,9 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
+    "https://calm-wisp-9ab0d7.netlify.app"
 ]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

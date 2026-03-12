@@ -10,7 +10,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    os.getenv("FRONTEND_URL")
+    "https://curious-puffpuff-c8baef.netlify.app/"
 ]
 app.add_middleware(
     CORSMiddleware,

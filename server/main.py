@@ -9,7 +9,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https://calm-wisp-9ab0d7.netlify.app"
+    "https://learnlytic.netlify.app/"
 ]
 
 app.add_middleware(

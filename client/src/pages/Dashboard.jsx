@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import DashboardLayout from "../layout/DashboardLayout";
-
 import Sidebar from "../components/Sidebar";
 import EntryModal from "../components/EntryModal";
+
 import LearningOverview from "../components/LearningOverview";
 import OverviewCards from "../components/OverviewCards";
 import SkillDeveloped from "../components/SkillDeveloped";
 import StudyTimeChart from "../components/Charts/StudyTimeChart";
 import TopicChart from "../components/Charts/TopicChart";
-
 import StreakCard from "../components/StreakCard";
 import MonthlyGoal from "../components/MonthlyGoal";
 import ConsistencyScore from "../components/ConsistencyScore";
@@ -31,10 +30,9 @@ import {
 
 const Dashboard = () => {
   const [entries, setEntries] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editEntry, setEditEntry] = useState(null);
-
   const [overview, setOverview] = useState({});
   const [skills, setSkills] = useState([]);
   const [studyTime, setStudyTime] = useState([]);
@@ -85,6 +83,8 @@ const Dashboard = () => {
       setInsights(insightRes.data || []);
     } catch (err) {
       console.error("Analytics load failed", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,6 +92,16 @@ const Dashboard = () => {
     loadEntries();
     loadAnalytics();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center text-gray-600">
+        <p className="text-lg font-semibold">
+          🚀 Starting server... please wait 10-20 seconds
+        </p>
+      </div>
+    );
+  }
 
   const openModal = () => {
     setEditEntry(null);

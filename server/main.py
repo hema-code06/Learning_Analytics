@@ -26,4 +26,14 @@ app.include_router(analytics.router, prefix="/analytics", tags=["Analytics"])
 
 @app.get("/")
 def root():
-    return {"message": "Learning_Analytics API"}
+    return {
+        "status": "success",
+        "message": "Learning Analytics API is running 🚀"
+    }
+
+
+@app.get("/health")
+def health_check():
+    return {
+        "status": "ok"
+    }

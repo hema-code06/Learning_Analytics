@@ -9,7 +9,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https://learnlytic.netlify.app"
+    "https://learning-analytics-pi.vercel.app"
 ]
 
 app.add_middleware(

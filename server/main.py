@@ -9,7 +9,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https://learning-analytics-pi.vercel.app"
+    "https://learning-analytics-phi.vercel.app"
 ]
 
 app.add_middleware(

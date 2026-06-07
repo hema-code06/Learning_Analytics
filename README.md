@@ -1,151 +1,127 @@
-# 📊 Learning Analytics Dashboard
+# Learning Analytics Dashboard
 
-Built with **React + FastAPI** that helps users track their learning progress, analyze study patterns, and stay consistent with their learning goals.
+> A full-stack personal learning tracker that helps you log study sessions, visualize progress, track streaks, and stay consistent with your learning goals.
 
-This project allows users to log learning entries (topic, date, hours) and visualize analytics such as learning hours, skill development, topic breakdown, streak tracking, consistency score, and monthly goals.
+---
+
+## 🌐 Live Demo
+
+| Service | URL |
+|---------|-----|
+| Frontend | [learning-analytics-wkwx.vercel.app](https://learning-analytics-wkwx.vercel.app/) |
+| Backend API | FastAPI + PostgreSQL |
+
+---
+
+## 📌 About the Project
+
+Learning Analytics Dashboard lets you log your daily learning entries (topic, date, hours) and turns that data into meaningful analytics — study time charts, skill breakdowns, streak tracking, consistency scoring, and smart insights — all through a clean, animated dashboard.
 
 ---
 
 ## 🚀 Features
 
 ### 📚 Learning Entry Management (CRUD)
-- Add learning entries with **topic, date, and hours**
-- Edit existing entries
-- Delete entries
-- View all logged learning activities
+- Add learning entries with topic, date, and hours
+- Edit and delete existing entries
+- View all logged learning activities in a list
 
-### 📈 Analytics Dashboard
-- **Overview Cards**
-  - Total learning hours
-  - Skills developed
-  - Topics covered
-  - Consistency score
+### 📊 Analytics Dashboard
+- **Overview Cards** — Total learning hours, skills developed, topics covered, consistency score
+- **Study Time Chart** — Visualize learning hours over time (Daily / Weekly / Monthly view)
+- **Skills Developed** — Hours invested per skill (radar/bar chart)
+- **Topic Breakdown** — Session count per topic
+- **Learning Overview** — Combined performance view
 
-- **Learning Overview**
-  - Visual analytics for learning performance
+### 🔥 Streak Tracker
+- Current learning streak (consecutive days)
+- Best streak achieved
 
-- **Skills Developed**
-  - Radar chart showing skill growth
+### 🎯 Monthly Goal
+- Set a monthly learning hours goal
+- Progress bar showing hours completed vs target
 
-- **Study Time Chart**
-  - Visual representation of time spent learning
+### 📈 Consistency Score
+- Calculated from learning days vs total days passed in the current month
+- Feedback messages: 🔥 Amazing / 💪 Great / ⚡ Keep going
 
-- **Topic Breakdown**
-  - Analyze time spent per topic
-
-- **Streak Tracker**
-  - Current learning streak
-  - Best streak achieved
-
-- **Monthly Goal**
-  - Set monthly learning hours
-  - Progress bar visualization
-
-- **Consistency Score**
-  - Calculates learning consistency based on study frequency
-
-- **Smart Insights**
-  - Suggestions based on learning behavior
+### 💡 Smart Insights
+- Auto-generated insights based on your data:
+  - Your strongest skill right now
+  - Total hours invested
+  - Number of unique skills explored
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React**
-- **TailwindCSS**
-- **Framer Motion**
-- **Recharts**
-- **React Toastify**
-- **React Icons**
+| Technology | Purpose |
+|------------|---------|
+| React.js + Vite | UI framework & build tool |
+| Tailwind CSS | Styling |
+| Framer Motion | Animations |
+| Recharts | Charts & data visualization |
+| Axios | HTTP client |
+| React Toastify | Notifications |
+| React Icons | Icon library |
 
 ### Backend
-- **FastAPI**
-- **SQLAlchemy**
-- **SQLite / PostgreSQL**
-- **Pydantic**
+| Technology | Purpose |
+|------------|---------|
+| FastAPI | REST API framework |
+| SQLAlchemy | ORM |
+| PostgreSQL | Database |
+| Pydantic | Request/response validation |
+| Uvicorn | ASGI server |
+
 ---
 
-## ⚙️ Installation
+## 🔧 Local Setup
 
-### 1️⃣ Clone the Repository
+### Prerequisites
+- Node.js & npm
+- Python 
+- PostgreSQL
 
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/hema-code06/Learning_Analytics.git
-cd learning_analytics
+cd Learning_Analytics
 ```
 
----
-
-### 2️⃣ Backend Setup (FastAPI)
-
+### 2. Backend Setup
 ```bash
-cd backend
-
-python -m venv venv
-venv\Scripts\activate   #Windows
-
-pip install -r requirements.txt
-```
-
-Run backend server:
-
-```bash
+cd server
+pip install fastapi uvicorn sqlalchemy psycopg2-binary pydantic python-dotenv
 uvicorn main:app --reload
+# Runs at http://localhost:8000
 ```
 
-Backend runs on:
-
-```
-http://localhost:8000
-```
-
----
-
-### 3️⃣ Frontend Setup (Vite + React + TailwindCSS)
-
+### 3. Frontend Setup
 ```bash
-cd frontend
-
-npm create vite@latest ./
+cd client
 npm install
-
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-```
-Run the frontend development server:
-
-```bash
 npm run dev
+# Runs at http://localhost:5173
 ```
-
-Frontend runs on:
-
-```
-http://localhost:5173
-```
----
-
-## 💡 Future Improvements
-
-- User authentication
-- Multi-user support
-- AI learning recommendations
-- Weekly goal tracking
-- GitHub-style contribution heatmap
-- Export analytics reports
 
 ---
 
-## 🤝 Contributing
+## 🔮 Future Improvements
 
-Contributions are welcome!
-
-1. Fork the repository  
-2. Create a new branch
-3. Commit your changes
-4. Submit a pull request
+- [ ] User authentication and multi-user support
+- [ ] GitHub-style contribution heatmap
+- [ ] Weekly goal tracking
+- [ ] AI learning recommendations
+- [ ] Export analytics report
 
 ---
 
-⭐ If you like this project, consider giving it a **star on GitHub**!
+## ⭐ Show Your Support
+
+If you like this project, please give it a ⭐ on GitHub — it motivates me to keep building!
+
+---
+
+*Built with ❤️ using React · FastAPI · Python · PostgreSQL · Tailwind CSS*

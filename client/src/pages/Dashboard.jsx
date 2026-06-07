@@ -152,13 +152,13 @@ const Dashboard = () => {
 
         <LearningOverview overview={overview} studyTime={studyTime} />
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <SkillDeveloped skills={skills} />
           <StudyTimeChart data={studyTime} />
           <TopicChart data={topics} />
         </div>
 
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <StreakCard current={streak.current} best={streak.best} />
           <MonthlyGoal data={goal} refresh={loadAnalytics} />
           <ConsistencyScore data={consistency} />

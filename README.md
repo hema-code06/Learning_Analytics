@@ -1,88 +1,63 @@
-# Learning Analytics Dashboard
+# 📊 Learning Analytics
 
-> A full-stack personal learning tracker that helps you log study sessions, visualize progress, track streaks, and stay consistent with your learning goals.
-
----
-
-## 🌐 Live Demo
-
-| Service | URL |
-|---------|-----|
-| Frontend | [learning-analytics-wkwx.vercel.app](https://learning-analytics-wkwx.vercel.app/) |
-| Backend API | FastAPI + PostgreSQL |
+Track what you learn, when you learn it, and how consistent you really are.
+A full-stack dashboard that turns raw study logs into actionable insights.
 
 ---
 
-## 📌 About the Project
+## 📖 About the Project
 
-Learning Analytics Dashboard lets you log your daily learning entries (topic, date, hours) and turns that data into meaningful analytics — study time charts, skill breakdowns, streak tracking, consistency scoring, and smart insights — all through a clean, animated dashboard.
+Learning Analytics is a personal learning-tracker and analytics dashboard built to help you understand your own study habits over time. Instead of just logging what topics you studied, the app computes derived metrics — streaks, consistency scores, monthly goal progress, and topic-wise time distribution — so you can see patterns in your learning behavior rather than just a raw list of entries.
 
----
-
-## 🚀 Features
-
-### 📚 Learning Entry Management (CRUD)
-- Add learning entries with topic, date, and hours
-- Edit and delete existing entries
-- View all logged learning activities in a list
-
-### 📊 Analytics Dashboard
-- **Overview Cards** — Total learning hours, skills developed, topics covered, consistency score
-- **Study Time Chart** — Visualize learning hours over time (Daily / Weekly / Monthly view)
-- **Skills Developed** — Hours invested per skill (radar/bar chart)
-- **Topic Breakdown** — Session count per topic
-- **Learning Overview** — Combined performance view
-
-### 🔥 Streak Tracker
-- Current learning streak (consecutive days)
-- Best streak achieved
-
-### 🎯 Monthly Goal
-- Set a monthly learning hours goal
-- Progress bar showing hours completed vs target
-
-### 📈 Consistency Score
-- Calculated from learning days vs total days passed in the current month
-- Feedback messages: 🔥 Amazing / 💪 Great / ⚡ Keep going
-
-### 💡 Smart Insights
-- Auto-generated insights based on your data:
-  - Your strongest skill right now
-  - Total hours invested
-  - Number of unique skills explored
+The project is split into two independently deployable services: a **React SPA** for the UI and a **FastAPI** service that owns all business logic and persistence. This separation keeps the frontend simple (pure presentation and state) and the backend testable and framework-agnostic.
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Features
 
-### Frontend
-| Technology | Purpose |
-|------------|---------|
-| React.js + Vite | UI framework & build tool |
-| Tailwind CSS | Styling |
-| Framer Motion | Animations |
-| Recharts | Charts & data visualization |
-| Axios | HTTP client |
-| React Toastify | Notifications |
-| React Icons | Icon library |
-
-### Backend
-| Technology | Purpose |
-|------------|---------|
-| FastAPI | REST API framework |
-| SQLAlchemy | ORM |
-| PostgreSQL | Database |
-| Pydantic | Request/response validation |
-| Uvicorn | ASGI server |
+- **Learning Entry Management** — Create, edit, and delete study log entries (topic, date, hours).
+- **Overview Dashboard** — At-a-glance cards for total hours studied and total sessions logged.
+- **Study Time Chart** — Visualize study hours over time in daily or aggregated views.
+- **Topic Breakdown** — See which topics consume the most study time.
+- **Skills Developed** — Aggregated view of distinct skills/topics covered.
+- **Streak Tracking** — Current consecutive-day streak and your all-time best streak.
+- **Consistency Score** — A normalized score reflecting how evenly you've studied across the month.
+- **Monthly Goal Tracking** — Set an hours-based monthly goal and track completion in real time.
+- **Smart Insights** — Auto-generated observations based on recent activity trends.
 
 ---
 
-## 🔧 Local Setup
+## 🛠 Tech Stack
+
+**Frontend**
+- React (Vite)
+- Tailwind CSS
+- Axios
+- Recharts (data visualization)
+- Framer Motion (animations)
+- React Icons
+- React Toastify (notifications)
+
+**Backend**
+- FastAPI
+- SQLAlchemy (ORM)
+- Pydantic (schema validation)
+- Uvicorn (ASGI server)
+
+**Database**
+- PostgreSQL (Supabase-hosted, pooled connection)
+- SQLite (automatic local-development fallback)
+
+**Deployment**
+- Vercel 
+
+---
+
+## 🚀 Local Setup
 
 ### Prerequisites
 - Node.js & npm
-- Python 
-- PostgreSQL
+- Python 3.10+
 
 ### 1. Clone the Repository
 ```bash
@@ -93,35 +68,64 @@ cd Learning_Analytics
 ### 2. Backend Setup
 ```bash
 cd server
-pip install fastapi uvicorn sqlalchemy psycopg2-binary pydantic python-dotenv
+pip install -r requirements.txt
+cp .env.example .env   # optional locally — see note below
 uvicorn main:app --reload
 # Runs at http://localhost:8000
 ```
+> `DATABASE_URL` is optional for local development. If it isn't set, the API automatically falls back to a local SQLite file (`server/learning.db`), so the project runs with zero configuration. Set `DATABASE_URL` in `.env` to point at a real PostgreSQL instance instead.
 
 ### 3. Frontend Setup
 ```bash
 cd client
 npm install
+cp .env.example .env   # set VITE_API_URL if your API isn't on localhost:8000
 npm run dev
 # Runs at http://localhost:5173
 ```
 
 ---
 
-## 🔮 Future Improvements
+## 🏗 Architecture
 
-- [ ] User authentication and multi-user support
-- [ ] GitHub-style contribution heatmap
-- [ ] Weekly goal tracking
-- [ ] AI learning recommendations
-- [ ] Export analytics report
+```mermaid
+flowchart LR
+    subgraph Client["Client — React (Vite)"]
+        UI[Dashboard UI]
+        Charts[Recharts Visualizations]
+        API_Client[Axios API Client]
+    end
+
+    subgraph Server["Server — FastAPI"]
+        Router1["/learning routes"]
+        Router2["/analytics routes"]
+        ORM[SQLAlchemy ORM]
+    end
+
+    DB[(PostgreSQL / Supabase)]
+
+    UI --> API_Client
+    Charts --> API_Client
+    API_Client -- REST / JSON --> Router1
+    API_Client -- REST / JSON --> Router2
+    Router1 --> ORM
+    Router2 --> ORM
+    ORM --> DB
+```
+
+The frontend never talks to the database directly — every read and write goes through the FastAPI service, which validates input via Pydantic schemas, executes queries through SQLAlchemy, and returns typed JSON responses. This keeps a single source of truth for business rules (e.g. streak and consistency calculations) on the server rather than duplicating logic on the client.
 
 ---
 
-## ⭐ Show Your Support
+## 🔭 Future Improvements
 
-If you like this project, please give it a ⭐ on GitHub — it motivates me to keep building!
+- Add user authentication so the dashboard supports multiple accounts.
+- Persist and expose historical monthly-goal records (not just the current month).
+- Introduce caching (e.g. Redis) for analytics endpoints that aggregate large datasets.
+- Add export functionality (CSV/PDF) for study logs and analytics summaries.
+- Support tagging entries with difficulty or confidence level for richer insights.
 
 ---
 
-*Built with ❤️ using React · FastAPI · Python · PostgreSQL · Tailwind CSS*
+*Built With ❤️ using React · FastAPI · SQLAlchemy · PostgreSQL · Supabase · Tailwind CSS*
+

@@ -86,37 +86,6 @@ npm run dev
 
 ---
 
-## 🏗 Architecture
-
-```mermaid
-flowchart LR
-    subgraph Client["Client — React (Vite)"]
-        UI[Dashboard UI]
-        Charts[Recharts Visualizations]
-        API_Client[Axios API Client]
-    end
-
-    subgraph Server["Server — FastAPI"]
-        Router1["/learning routes"]
-        Router2["/analytics routes"]
-        ORM[SQLAlchemy ORM]
-    end
-
-    DB[(PostgreSQL / Supabase)]
-
-    UI --> API_Client
-    Charts --> API_Client
-    API_Client -- REST / JSON --> Router1
-    API_Client -- REST / JSON --> Router2
-    Router1 --> ORM
-    Router2 --> ORM
-    ORM --> DB
-```
-
-The frontend never talks to the database directly — every read and write goes through the FastAPI service, which validates input via Pydantic schemas, executes queries through SQLAlchemy, and returns typed JSON responses. This keeps a single source of truth for business rules (e.g. streak and consistency calculations) on the server rather than duplicating logic on the client.
-
----
-
 ## 🔭 Future Improvements
 
 - Add user authentication so the dashboard supports multiple accounts.

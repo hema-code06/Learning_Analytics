@@ -5,7 +5,6 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Line,
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
@@ -68,7 +67,6 @@ const StudyTimeChart = ({ data = [] }) => {
             axisLine={false}
             tickLine={false}
           />
-          <Line dataKey="hours" />
           <YAxis tick={{ fontSize: 12 }} axisLine={false} tickLine={false} />
 
           <Tooltip

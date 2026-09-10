@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -8,7 +10,7 @@ import schemas
 router = APIRouter()
 
 
-@router.post("/")
+@router.post("/", response_model=schemas.LearningResponse)
 def create_entry(entry: schemas.LearningCreate, db: Session = Depends(get_db)):
     new_entry = models.LearningEntry(
         topic=entry.topic,
@@ -21,12 +23,12 @@ def create_entry(entry: schemas.LearningCreate, db: Session = Depends(get_db)):
     return new_entry
 
 
-@router.get("/")
+@router.get("/", response_model=List[schemas.LearningResponse])
 def get_entries(db: Session = Depends(get_db)):
     return db.query(models.LearningEntry).all()
 
 
-@router.put("/{entry_id}")
+@router.put("/{entry_id}", response_model=schemas.LearningResponse)
 def update_entry(entry_id: int, entry: schemas.LearningCreate, db: Session = Depends(get_db)):
 
     existing = db.query(models.LearningEntry).filter(

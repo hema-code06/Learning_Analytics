@@ -1,11 +1,19 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from database import Base, engine
 from routers import learning, analytics
 
-Base.metadata.create_all(bind=engine)
+logger = logging.getLogger("learning_analytics")
 
-app = FastAPI()
+app = FastAPI(title="Learning Analytics API")
+
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception:
+    logger.exception("Failed to initialize database tables on startup")
 
 app.add_middleware(
     CORSMiddleware,

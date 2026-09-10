@@ -134,23 +134,31 @@ def consistency_score(db: Session = Depends(get_db)):
 @router.get("/streak")
 def streak(db: Session = Depends(get_db)):
 
-    dates = db.query(models.LearningEntry.date)\
-        .distinct()\
-        .order_by(models.LearningEntry.date.desc())\
-        .all()
-
-    dates = [d[0] for d in dates]
-
-    streak = 0
-    today = date.today()
+    rows = db.query(models.LearningEntry.date).distinct().all()
+    dates = sorted({r[0] for r in rows})
+    best_streak = 0
+    run_length = 0
+    previous_date = None
 
     for d in dates:
-        if d == today or d == today - timedelta(days=streak):
-            streak += 1
+        if previous_date is not None and (d - previous_date).days == 1:
+            run_length += 1
+        else:
+            run_length = 1
+        best_streak = max(best_streak, run_length)
+        previous_date = d
+
+    current_streak = 0
+    expected_date = date.today()
+
+    for d in reversed(dates):
+        if d == expected_date:
+            current_streak += 1
+            expected_date -= timedelta(days=1)
         else:
             break
 
-    return {"streak": streak}
+    return {"current": current_streak, "best": best_streak}
 
 
 @router.get("/monthly-goal")

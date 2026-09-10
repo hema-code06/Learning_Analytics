@@ -38,7 +38,7 @@ const Dashboard = () => {
   const [studyTime, setStudyTime] = useState([]);
   const [topics, setTopics] = useState([]);
   const [streak, setStreak] = useState({ current: 0, best: 0 });
-  const [goal, setGoal] = useState({ progress: 0 });
+  const [goal, setGoal] = useState({ goal: 0, completed: 0 });
   const [consistency, setConsistency] = useState(null);
   const [insights, setInsights] = useState([]);
 
@@ -65,7 +65,7 @@ const Dashboard = () => {
       ] = await Promise.all([
         getOverview(),
         getSkills(),
-        getStudyTime(),
+        getStudyTime("daily"),
         getTopicBreakdown(),
         getStreak(),
         getMonthlyGoal(),
@@ -78,7 +78,7 @@ const Dashboard = () => {
       setStudyTime(studyRes.data || []);
       setTopics(topicRes.data || []);
       setStreak(streakRes.data || { current: 0, best: 0 });
-      setGoal(goalRes.data || { progress: 0 });
+      setGoal(goalRes.data || { goal: 0, completed: 0 });
       setConsistency(consistencyRes.data);
       setInsights(insightRes.data || []);
     } catch (err) {

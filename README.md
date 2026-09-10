@@ -29,27 +29,35 @@ The project is split into two independently deployable services: a **React SPA**
 
 ## 🛠 Tech Stack
 
-**Frontend**
-- React (Vite)
-- Tailwind CSS
-- Axios
-- Recharts (data visualization)
-- Framer Motion (animations)
-- React Icons
-- React Toastify (notifications)
+## 🛠 Tech Stack
 
-**Backend**
-- FastAPI
-- SQLAlchemy (ORM)
-- Pydantic (schema validation)
-- Uvicorn (ASGI server)
+### Frontend
 
-**Database**
-- PostgreSQL (Supabase-hosted, pooled connection)
-- SQLite (automatic local-development fallback)
+| Technology | Purpose |
+|------------|---------|
+| React (Vite) | Frontend UI framework and development tooling |
+| Tailwind CSS | Utility-first CSS styling |
+| Axios | HTTP client for API requests |
+| Recharts | Data visualization and charts |
+| Framer Motion | Animations and transitions |
+| React Icons | UI icons |
+| React Toastify | Toast notifications |
 
-**Deployment**
-- Vercel 
+### Backend
+
+| Technology | Purpose |
+|------------|---------|
+| FastAPI | Backend API framework |
+| SQLAlchemy | ORM for database operations |
+| Pydantic | Data validation and API schemas |
+| Uvicorn | ASGI server for running the FastAPI application |
+
+### Database
+
+| Technology | Purpose |
+|------------|---------|
+| PostgreSQL (Supabase) | Production database with pooled connections |
+| SQLite | Automatic fallback database for local development |
 
 ---
 

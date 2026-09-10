@@ -29,8 +29,6 @@ The project is split into two independently deployable services: a **React SPA**
 
 ## 🛠 Tech Stack
 
-## 🛠 Tech Stack
-
 ### Frontend
 
 | Technology | Purpose |

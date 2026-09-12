@@ -4,24 +4,22 @@ import { FaFire } from "react-icons/fa";
 const StreakCard = ({ current = 0, best = 0 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      whileHover={{ y: -4 }}
-      className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition flex flex-col"
+      className="h-full bg-white p-5 rounded-xl2 shadow-card flex flex-col justify-between"
     >
-      <h3 className="text-gray-600 font-semibold text-lg mb-3">
-        Current Streak
-      </h3>
+      <h3 className="text-ink/60 font-medium text-sm">Current streak</h3>
 
       <div className="flex items-center gap-3">
-        <FaFire className="text-orange-500 text-3xl" />
-
-        <p className="text-3xl font-bold text-gray-800">{current} days</p>
+        <div className="w-11 h-11 rounded-lg bg-rust/10 text-rust flex items-center justify-center shrink-0">
+          <FaFire className="text-xl" />
+        </div>
+        <p className="font-display text-3xl font-semibold text-ink">{current}<span className="text-base font-sans text-ink/40 ml-1">days</span></p>
       </div>
 
-      <p className="text-sm text-gray-500 mt-3">
-        Best streak: <span className="font-semibold">{best} days</span>
+      <p className="text-xs text-ink/45">
+        Best streak: <span className="font-medium text-ink/70">{best} days</span>
       </p>
     </motion.div>
   );

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,23 +9,98 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  height: 100%;
+}
+
 body {
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  background: #f5f6fa;
-  color: #1f2937;
-  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #F4F5F0;
+  color: #16211D;
 }
 
-::-webkit-scrollbar {
+.font-display {
+  font-family: "Fraunces", Georgia, serif;
+  font-feature-settings: "ss01";
+}
+
+/* thin scrollbars, light context */
+.scroll-thin::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
-
-::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(22, 33, 29, 0.15);
   border-radius: 6px;
 }
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* thin scrollbars, dark sidebar context */
+.scroll-thin-dark::-webkit-scrollbar {
+  width: 5px;
+}
+.scroll-thin-dark::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+}
+.scroll-thin-dark::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Bento dashboard grid — desktop: fills viewport, no page scroll.
+   Falls back to a single flowing column with normal scroll below 1280px. */
+.dashboard-grid {
+  display: grid;
+  height: 100%;
+  gap: 1rem;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr;
+  grid-template-rows: auto minmax(0, 1.55fr) minmax(0, 1fr) minmax(0, 0.62fr);
+  grid-template-areas:
+    "cards   cards    cards  cards"
+    "hero    hero      study  topic"
+    "skills  streak    goal   consistency"
+    "insights insights insights insights";
+}
+
+@media (max-width: 1280px) {
+  .dashboard-grid {
+    height: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-template-areas:
+      "cards cards"
+      "hero hero"
+      "study topic"
+      "skills streak"
+      "goal consistency"
+      "insights insights";
+  }
+}
+
+@media (max-width: 720px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cards"
+      "hero"
+      "study"
+      "topic"
+      "skills"
+      "streak"
+      "goal"
+      "consistency"
+      "insights";
+  }
+}
+
+.area-cards { grid-area: cards; }
+.area-hero { grid-area: hero; }
+.area-study { grid-area: study; }
+.area-topic { grid-area: topic; }
+.area-skills { grid-area: skills; }
+.area-streak { grid-area: streak; }
+.area-goal { grid-area: goal; }
+.area-consistency { grid-area: consistency; }
+.area-insights { grid-area: insights; }

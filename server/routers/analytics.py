@@ -136,6 +136,8 @@ def streak(db: Session = Depends(get_db)):
 
     rows = db.query(models.LearningEntry.date).distinct().all()
     dates = sorted({r[0] for r in rows})
+
+    # Longest run of consecutive learning days, ever.
     best_streak = 0
     run_length = 0
     previous_date = None
@@ -148,6 +150,7 @@ def streak(db: Session = Depends(get_db)):
         best_streak = max(best_streak, run_length)
         previous_date = d
 
+    # Current run of consecutive days ending today.
     current_streak = 0
     expected_date = date.today()
 

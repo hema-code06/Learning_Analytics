@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="h-screen w-screen overflow-hidden bg-paper">
       <Dashboard />
       <ToastContainer
         position="top-right"
@@ -14,7 +14,7 @@ function App() {
         closeOnClick
         pauseOnHover
         draggable
-        theme="dark"
+        theme="colored"
         transition={Slide}
       />
     </div>

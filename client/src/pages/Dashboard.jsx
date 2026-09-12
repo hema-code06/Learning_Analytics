@@ -95,9 +95,9 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center text-gray-600">
-        <p className="text-lg font-semibold">
-          🚀 Starting server... please wait 10-20 seconds
+      <div className="h-screen flex items-center justify-center bg-paper text-ink/60">
+        <p className="font-display text-lg font-medium">
+          Starting server — this can take 10–20 seconds…
         </p>
       </div>
     );
@@ -140,28 +140,47 @@ const Dashboard = () => {
         />
       }
     >
-      <div className="space-y-6">
-        <OverviewCards
-          data={{
-            ...overview,
-            skills: skills.length,
-            topics: topics.length,
-            score: consistency?.score || 0,
-          }}
-        />
+      <div className="dashboard-grid">
+        <div className="area-cards">
+          <OverviewCards
+            data={{
+              ...overview,
+              skills: skills.length,
+              topics: topics.length,
+              score: consistency?.score || 0,
+            }}
+          />
+        </div>
 
-        <LearningOverview overview={overview} studyTime={studyTime} />
+        <div className="area-hero">
+          <LearningOverview overview={overview} studyTime={studyTime} />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <SkillDeveloped skills={skills} />
+        <div className="area-study">
           <StudyTimeChart data={studyTime} />
+        </div>
+
+        <div className="area-topic">
           <TopicChart data={topics} />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="area-skills">
+          <SkillDeveloped skills={skills} />
+        </div>
+
+        <div className="area-streak">
           <StreakCard current={streak.current} best={streak.best} />
+        </div>
+
+        <div className="area-goal">
           <MonthlyGoal data={goal} refresh={loadAnalytics} />
+        </div>
+
+        <div className="area-consistency">
           <ConsistencyScore data={consistency} />
+        </div>
+
+        <div className="area-insights">
           <SmartInsights data={insights} />
         </div>
       </div>

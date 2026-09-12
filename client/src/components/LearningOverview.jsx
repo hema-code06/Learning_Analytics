@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   Tooltip,
@@ -12,66 +12,73 @@ import {
 const LearningOverview = ({ overview, studyTime }) => {
   if (!studyTime || studyTime.length === 0) {
     return (
-      <div className="bg-white p-6 rounded-2xl shadow-md text-gray-400 text-sm">
-        No analytics data available
+      <div className="h-full bg-white p-6 rounded-xl2 shadow-card text-ink/40 text-sm flex items-center justify-center">
+        Log a session to start seeing your learning curve.
       </div>
     );
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition"
+      className="h-full bg-white p-6 rounded-xl2 shadow-card flex flex-col"
     >
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-gray-700">
-            Learning Overview
+          <h3 className="font-display text-xl font-semibold text-ink">
+            Your learning curve
           </h3>
-          <p className="text-gray-400 text-sm">
-            Track your learning progress over time
+          <p className="text-ink/45 text-sm mt-0.5">
+            Hours studied over time
           </p>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex gap-6 shrink-0">
           <div>
-            <p className="text-xs text-gray-400">Sessions</p>
-            <p className="text-xl font-bold text-blue-600">
+            <p className="text-xs text-ink/40">Sessions</p>
+            <p className="font-display text-xl font-semibold text-forest-700">
               {overview.total_sessions}
             </p>
           </div>
-
           <div>
-            <p className="text-xs text-gray-400">Hours</p>
-            <p className="text-xl font-bold text-green-600">
+            <p className="text-xs text-ink/40">Hours</p>
+            <p className="font-display text-xl font-semibold text-gold-600">
               {overview.total_hours}
             </p>
           </div>
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={250}>
-        <LineChart data={studyTime}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
+      <div className="flex-1 min-h-0">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={studyTime} margin={{ left: -18, top: 4, right: 8, bottom: 0 }}>
+            <defs>
+              <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#1F6F5C" stopOpacity={0.32} />
+                <stop offset="100%" stopColor="#1F6F5C" stopOpacity={0} />
+              </linearGradient>
+            </defs>
 
-          <XAxis dataKey="period" tick={{ fontSize: 12 }} stroke="#9CA3AF" />
-
-          <YAxis tick={{ fontSize: 12 }} stroke="#9CA3AF" />
-
-          <Tooltip />
-
-          <Line
-            type="monotone"
-            dataKey="hours"
-            stroke="#3B82F6"
-            strokeWidth={3}
-            dot={{ r: 4 }}
-            activeDot={{ r: 6 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+            <CartesianGrid strokeDasharray="3 3" stroke="#E7E6DF" vertical={false} />
+            <XAxis dataKey="period" tick={{ fontSize: 12, fill: "#8A9089" }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 12, fill: "#8A9089" }} axisLine={false} tickLine={false} />
+            <Tooltip
+              contentStyle={{ borderRadius: 10, border: "1px solid #E7E6DF", fontSize: 13 }}
+            />
+            <Area
+              type="monotone"
+              dataKey="hours"
+              stroke="#1F6F5C"
+              strokeWidth={2.5}
+              fill="url(#curveFill)"
+              dot={{ r: 3, fill: "#1F6F5C", strokeWidth: 0 }}
+              activeDot={{ r: 5 }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </motion.div>
   );
 };

@@ -18,12 +18,12 @@ const TopicChart = ({ data = [] }) => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="h-full bg-white p-5 rounded-xl2 shadow-card flex flex-col"
+      className="h-full bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] flex flex-col"
     >
-      <h3 className="font-display font-semibold text-ink mb-1">Topic split</h3>
+      <h3 className="font-display font-semibold text-[#16211D] mb-1">Topic split</h3>
 
       {data.length === 0 ? (
-        <p className="text-ink/40 text-sm flex-1 flex items-center justify-center">
+        <p className="text-[#16211D]/40 text-sm flex-1 flex items-center justify-center">
           No topic analytics available
         </p>
       ) : (
@@ -54,8 +54,8 @@ const TopicChart = ({ data = [] }) => {
           </ResponsiveContainer>
 
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <p className="font-display text-xl font-semibold text-ink">{total}</p>
-            <p className="text-[11px] text-ink/45">hours</p>
+            <p className="font-display text-xl font-semibold text-[#16211D]">{total}</p>
+            <p className="text-[11px] text-[#16211D]/45">hours</p>
           </div>
         </div>
       )}
@@ -63,7 +63,7 @@ const TopicChart = ({ data = [] }) => {
       {data.length > 0 && (
         <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 justify-center">
           {data.slice(0, 4).map((d, i) => (
-            <span key={i} className="flex items-center gap-1.5 text-[11px] text-ink/60">
+            <span key={i} className="flex items-center gap-1.5 text-[11px] text-[#16211D]/60">
               <span
                 className="w-2 h-2 rounded-full shrink-0"
                 style={{ backgroundColor: COLORS[i % COLORS.length] }}

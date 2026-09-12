@@ -28,11 +28,11 @@ const EntryList = ({ entries = [], editEntry, removeEntry }) => {
 
             <div className="flex gap-3 opacity-70 group-hover:opacity-100 transition-opacity shrink-0 pl-2">
               <FaEdit
-                className="cursor-pointer text-gold-400 hover:text-gold-500 transition-colors"
+                className="cursor-pointer text-[#D9A441] hover:text-[#C4872B] transition-colors"
                 onClick={() => editEntry?.(e)}
               />
               <FaTrash
-                className="cursor-pointer text-white/50 hover:text-rust transition-colors"
+                className="cursor-pointer text-white/50 hover:text-[#B5583B] transition-colors"
                 onClick={() => removeEntry?.(e.id)}
               />
             </div>

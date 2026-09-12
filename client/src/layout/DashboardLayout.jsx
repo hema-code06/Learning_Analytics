@@ -5,7 +5,7 @@ const DashboardLayout = ({ sidebar, children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-paper text-ink">
+    <div className="flex h-screen w-screen overflow-hidden bg-[#F4F5F0] text-[#16211D]">
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/40 z-20 lg:hidden"
@@ -22,14 +22,14 @@ const DashboardLayout = ({ sidebar, children }) => {
       </aside>
 
       <main className="flex-1 h-screen flex flex-col min-w-0">
-        <div className="lg:hidden flex items-center gap-3 px-4 py-3 bg-white border-b border-ink/10 sticky top-0 z-10">
+        <div className="lg:hidden flex items-center gap-3 px-4 py-3 bg-white border-b border-[#16211D]/10 sticky top-0 z-10">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-ink text-2xl"
+            className="text-[#16211D] text-2xl"
           >
             {sidebarOpen ? <HiX /> : <HiMenu />}
           </button>
-          <span className="font-display font-semibold text-ink">Learnlytics</span>
+          <span className="font-display font-semibold text-[#16211D]">Learnlytics</span>
         </div>
 
         <div className="flex-1 min-h-0 overflow-y-auto scroll-thin p-4 md:p-6">

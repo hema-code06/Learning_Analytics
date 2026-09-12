@@ -11,9 +11,9 @@ const ConsistencyScore = ({ data }) => {
 
   if (!data || data.score === undefined) {
     return (
-      <div className="h-full bg-white p-5 rounded-xl2 shadow-card flex flex-col">
-        <h3 className="text-ink/60 font-medium text-sm mb-3">Consistency score</h3>
-        <p className="text-ink/40 text-sm">No consistency analytics available</p>
+      <div className="h-full bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] flex flex-col">
+        <h3 className="text-[#16211D]/60 font-medium text-sm mb-3">Consistency score</h3>
+        <p className="text-[#16211D]/40 text-sm">No consistency analytics available</p>
       </div>
     );
   }
@@ -32,9 +32,9 @@ const ConsistencyScore = ({ data }) => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="h-full bg-white p-5 rounded-xl2 shadow-card flex flex-col items-center justify-center gap-2"
+      className="h-full bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] flex flex-col items-center justify-center gap-2"
     >
-      <h3 className="text-ink/60 font-medium text-sm self-start">Consistency score</h3>
+      <h3 className="text-[#16211D]/60 font-medium text-sm self-start">Consistency score</h3>
 
       <div className="relative flex items-center justify-center">
         <svg height={radius * 2} width={radius * 2}>
@@ -59,12 +59,12 @@ const ConsistencyScore = ({ data }) => {
             transform={`rotate(-90 ${radius} ${radius})`}
           />
         </svg>
-        <p className="absolute font-display text-xl font-semibold text-ink">
+        <p className="absolute font-display text-xl font-semibold text-[#16211D]">
           {score.toFixed(0)}%
         </p>
       </div>
 
-      <p className="text-xs text-ink/45 text-center">
+      <p className="text-xs text-[#16211D]/45 text-center">
         {data.learning_days} / {data.days_passed} recent active days
       </p>
     </motion.div>

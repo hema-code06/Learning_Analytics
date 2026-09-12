@@ -12,7 +12,7 @@ import {
 const LearningOverview = ({ overview, studyTime }) => {
   if (!studyTime || studyTime.length === 0) {
     return (
-      <div className="h-full bg-white p-6 rounded-xl2 shadow-card text-ink/40 text-sm flex items-center justify-center">
+      <div className="h-full bg-white p-6 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] text-[#16211D]/40 text-sm flex items-center justify-center">
         Log a session to start seeing your learning curve.
       </div>
     );
@@ -23,28 +23,28 @@ const LearningOverview = ({ overview, studyTime }) => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="h-full bg-white p-6 rounded-xl2 shadow-card flex flex-col"
+      className="h-full bg-white p-6 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] flex flex-col"
     >
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="font-display text-xl font-semibold text-ink">
+          <h3 className="font-display text-xl font-semibold text-[#16211D]">
             Your learning curve
           </h3>
-          <p className="text-ink/45 text-sm mt-0.5">
+          <p className="text-[#16211D]/45 text-sm mt-0.5">
             Hours studied over time
           </p>
         </div>
 
         <div className="flex gap-6 shrink-0">
           <div>
-            <p className="text-xs text-ink/40">Sessions</p>
-            <p className="font-display text-xl font-semibold text-forest-700">
+            <p className="text-xs text-[#16211D]/40">Sessions</p>
+            <p className="font-display text-xl font-semibold text-[#175447]">
               {overview.total_sessions}
             </p>
           </div>
           <div>
-            <p className="text-xs text-ink/40">Hours</p>
-            <p className="font-display text-xl font-semibold text-gold-600">
+            <p className="text-xs text-[#16211D]/40">Hours</p>
+            <p className="font-display text-xl font-semibold text-[#A16A1E]">
               {overview.total_hours}
             </p>
           </div>

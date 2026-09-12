@@ -37,13 +37,13 @@ const StudyTimeChart = ({ data = [] }) => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="h-full bg-white p-5 rounded-xl2 shadow-card flex flex-col"
+      className="h-full bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] flex flex-col"
     >
       <div className="flex justify-between items-center mb-3">
-        <h3 className="font-display font-semibold text-ink">Study time</h3>
+        <h3 className="font-display font-semibold text-[#16211D]">Study time</h3>
 
         <select
-          className="border border-ink/15 text-xs px-2.5 py-1 rounded-md bg-paper text-ink/70 focus:outline-none focus:ring-2 focus:ring-forest-500"
+          className="border border-[#16211D]/15 text-xs px-2.5 py-1 rounded-md bg-[#F4F5F0] text-[#16211D]/70 focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
           value={mode}
           onChange={(e) => setMode(e.target.value)}
         >

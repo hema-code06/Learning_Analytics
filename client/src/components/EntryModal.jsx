@@ -40,7 +40,7 @@ const EntryModal = ({ close, refresh, edit }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-ink/50 backdrop-blur-sm flex items-center justify-center z-50"
+      className="fixed inset-0 bg-[#16211D]/50 backdrop-blur-sm flex items-center justify-center z-50"
       onClick={close}
     >
       <motion.form
@@ -49,31 +49,31 @@ const EntryModal = ({ close, refresh, edit }) => {
         initial={{ opacity: 0, scale: 0.94, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.25 }}
-        className="bg-white rounded-xl2 shadow-2xl w-[380px] p-6"
+        className="bg-white rounded-[1.1rem] shadow-2xl w-[380px] p-6"
       >
-        <h2 className="font-display text-xl font-semibold text-ink mb-5">
+        <h2 className="font-display text-xl font-semibold text-[#16211D] mb-5">
           {edit ? "Edit learning entry" : "Log a learning session"}
         </h2>
 
-        <label className="text-xs font-medium text-ink/50 mb-1 block">Topic / skill</label>
+        <label className="text-xs font-medium text-[#16211D]/50 mb-1 block">Topic / skill</label>
         <input
           placeholder="e.g. React hooks"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           required
-          className="border border-ink/15 rounded-lg w-full px-3 py-2 mb-3 bg-paper focus:outline-none focus:ring-2 focus:ring-forest-500"
+          className="border border-[#16211D]/15 rounded-lg w-full px-3 py-2 mb-3 bg-[#F4F5F0] focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
         />
 
-        <label className="text-xs font-medium text-ink/50 mb-1 block">Date</label>
+        <label className="text-xs font-medium text-[#16211D]/50 mb-1 block">Date</label>
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
-          className="border border-ink/15 rounded-lg w-full px-3 py-2 mb-3 bg-paper focus:outline-none focus:ring-2 focus:ring-forest-500"
+          className="border border-[#16211D]/15 rounded-lg w-full px-3 py-2 mb-3 bg-[#F4F5F0] focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
         />
 
-        <label className="text-xs font-medium text-ink/50 mb-1 block">Study hours</label>
+        <label className="text-xs font-medium text-[#16211D]/50 mb-1 block">Study hours</label>
         <input
           type="number"
           step="0.5"
@@ -81,21 +81,21 @@ const EntryModal = ({ close, refresh, edit }) => {
           value={hours}
           onChange={(e) => setHours(e.target.value)}
           required
-          className="border border-ink/15 rounded-lg w-full px-3 py-2 mb-6 bg-paper focus:outline-none focus:ring-2 focus:ring-forest-500"
+          className="border border-[#16211D]/15 rounded-lg w-full px-3 py-2 mb-6 bg-[#F4F5F0] focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
         />
 
         <div className="flex justify-end gap-3">
           <button
             type="button"
             onClick={close}
-            className="px-4 py-2 rounded-lg border border-ink/15 text-ink/70 hover:bg-paper transition-colors"
+            className="px-4 py-2 rounded-lg border border-[#16211D]/15 text-[#16211D]/70 hover:bg-[#F4F5F0] transition-colors"
           >
             Cancel
           </button>
 
           <button
             type="submit"
-            className="px-4 py-2 rounded-lg bg-forest-600 text-white font-medium hover:bg-forest-700 transition-colors"
+            className="px-4 py-2 rounded-lg bg-[#1F6F5C] text-white font-medium hover:bg-[#175447] transition-colors"
           >
             Save
           </button>

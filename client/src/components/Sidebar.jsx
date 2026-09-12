@@ -9,7 +9,7 @@ const Sidebar = ({
   removeEntry = () => {},
 }) => {
   return (
-    <div className="w-72 bg-ink h-screen sticky top-0 flex flex-col text-white">
+    <div className="w-72 bg-[#16211D] h-screen sticky top-0 flex flex-col text-white">
       <div className="flex items-center gap-3 px-6 py-6">
         <img src="/logo_analytics.png" alt="logo" className="w-8 h-8 rounded-md" />
         <h1 className="font-display text-xl font-semibold tracking-tight">
@@ -22,7 +22,7 @@ const Sidebar = ({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={openModal}
-          className="w-full flex items-center justify-center gap-2 bg-gold-500 text-ink py-2.5 rounded-lg font-medium hover:bg-gold-400 transition-colors"
+          className="w-full flex items-center justify-center gap-2 bg-[#C4872B] text-[#16211D] py-2.5 rounded-lg font-medium hover:bg-[#D9A441] transition-colors"
         >
           <HiPlus className="text-lg" />
           Log a session

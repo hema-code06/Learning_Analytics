@@ -95,7 +95,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center bg-paper text-ink/60">
+      <div className="h-screen flex items-center justify-center bg-[#F4F5F0] text-[#16211D]/60">
         <p className="font-display text-lg font-medium">
           Starting server — this can take 10–20 seconds…
         </p>

@@ -5,7 +5,7 @@ const OverviewCards = ({ data }) => {
   if (!data) {
     return (
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-xl2 shadow-card text-ink/40 text-sm">
+        <div className="bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] text-[#16211D]/40 text-sm">
           No overview analytics available
         </div>
       </div>
@@ -17,29 +17,29 @@ const OverviewCards = ({ data }) => {
       title: "Learning hours",
       value: data.total_hours ?? 0,
       icon: HiOutlineClock,
-      accent: "border-forest-600",
-      iconBg: "bg-forest-50 text-forest-700",
+      accent: "border-[#1F6F5C]",
+      iconBg: "bg-[#EAF3EF] text-[#175447]",
     },
     {
       title: "Skills developed",
       value: data.skills ?? 0,
       icon: HiOutlineLightBulb,
-      accent: "border-gold-500",
-      iconBg: "bg-gold-400/15 text-gold-600",
+      accent: "border-[#C4872B]",
+      iconBg: "bg-[#D9A441]/15 text-[#A16A1E]",
     },
     {
       title: "Topics covered",
       value: data.topics ?? 0,
       icon: HiOutlineBookOpen,
-      accent: "border-ink/30",
-      iconBg: "bg-ink/5 text-ink/70",
+      accent: "border-[#16211D]/30",
+      iconBg: "bg-[#16211D]/5 text-[#16211D]/70",
     },
     {
       title: "Consistency",
       value: `${data.score ?? 0}%`,
       icon: HiOutlineChartBar,
-      accent: "border-rust",
-      iconBg: "bg-rust/10 text-rust",
+      accent: "border-[#B5583B]",
+      iconBg: "bg-[#B5583B]/10 text-[#B5583B]",
     },
   ];
 
@@ -51,14 +51,14 @@ const OverviewCards = ({ data }) => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: i * 0.06 }}
-          className={`bg-white rounded-xl2 shadow-card border-l-4 ${c.accent} p-4 flex items-center gap-4`}
+          className={`bg-white rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] border-l-4 ${c.accent} p-4 flex items-center gap-4`}
         >
           <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${c.iconBg}`}>
             <c.icon className="text-xl" />
           </div>
           <div className="min-w-0">
-            <p className="text-ink/50 text-xs font-medium truncate">{c.title}</p>
-            <p className="font-display text-2xl font-semibold text-ink leading-tight">
+            <p className="text-[#16211D]/50 text-xs font-medium truncate">{c.title}</p>
+            <p className="font-display text-2xl font-semibold text-[#16211D] leading-tight">
               {c.value}
             </p>
           </div>

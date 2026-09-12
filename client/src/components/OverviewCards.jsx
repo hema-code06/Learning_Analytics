@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import { HiOutlineClock, HiOutlineLightBulb, HiOutlineBookOpen, HiOutlineChartBar } from "react-icons/hi";
 
 const OverviewCards = ({ data }) => {
   if (!data) {
     return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] text-[#16211D]/40 text-sm">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white p-6 rounded-2xl shadow-md text-gray-400 text-sm">
           No overview analytics available
         </div>
       </div>
@@ -14,54 +13,41 @@ const OverviewCards = ({ data }) => {
 
   const cards = [
     {
-      title: "Learning hours",
+      title: "Learning Hours",
       value: data.total_hours ?? 0,
-      icon: HiOutlineClock,
-      accent: "border-[#1F6F5C]",
-      iconBg: "bg-[#EAF3EF] text-[#175447]",
+      color: "text-blue-600",
     },
     {
-      title: "Skills developed",
+      title: "Skills Developed",
       value: data.skills ?? 0,
-      icon: HiOutlineLightBulb,
-      accent: "border-[#C4872B]",
-      iconBg: "bg-[#D9A441]/15 text-[#A16A1E]",
+      color: "text-blue-600",
     },
     {
-      title: "Topics covered",
+      title: "Topics Covered",
       value: data.topics ?? 0,
-      icon: HiOutlineBookOpen,
-      accent: "border-[#16211D]/30",
-      iconBg: "bg-[#16211D]/5 text-[#16211D]/70",
+      color: "text-blue-600",
     },
     {
       title: "Consistency",
       value: `${data.score ?? 0}%`,
-      icon: HiOutlineChartBar,
-      accent: "border-[#B5583B]",
-      iconBg: "bg-[#B5583B]/10 text-[#B5583B]",
+      color: "text-green-600",
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 h-full">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {cards.map((c, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: i * 0.06 }}
-          className={`bg-white rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] border-l-4 ${c.accent} p-4 flex items-center gap-4`}
+          transition={{ duration: 0.35, delay: i * 0.08 }}
+          whileHover={{ y: -4 }}
+          className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition"
         >
-          <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${c.iconBg}`}>
-            <c.icon className="text-xl" />
-          </div>
-          <div className="min-w-0">
-            <p className="text-[#16211D]/50 text-xs font-medium truncate">{c.title}</p>
-            <p className="font-display text-2xl font-semibold text-[#16211D] leading-tight">
-              {c.value}
-            </p>
-          </div>
+          <h3 className="text-gray-500 text-sm font-medium">{c.title}</h3>
+
+          <p className={`text-3xl font-bold mt-2 ${c.color}`}>{c.value}</p>
         </motion.div>
       ))}
     </div>

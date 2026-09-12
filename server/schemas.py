@@ -14,9 +14,9 @@ class LearningResponse(BaseModel):
     date: date
     hours: float
 
-    class config:
-        orm_mode = True
-        
-    
+    class Config:
+        from_attributes = True
+
+
 class GoalUpdate(BaseModel):
     goal: float

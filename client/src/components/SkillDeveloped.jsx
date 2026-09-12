@@ -10,7 +10,7 @@ import {
 const SkillDeveloped = ({ skills = [] }) => {
   if (!skills || skills.length === 0) {
     return (
-      <div className="h-full bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] text-[#16211D]/40 text-sm flex items-center justify-center">
+      <div className="bg-white p-6 rounded-2xl shadow-md text-gray-400 text-sm">
         No skills analytics available
       </div>
     );
@@ -18,28 +18,35 @@ const SkillDeveloped = ({ skills = [] }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="h-full bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] flex flex-col"
+      className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition"
     >
-      <h2 className="font-display font-semibold text-[#16211D] mb-1">Skills developed</h2>
-
-      <div className="flex-1 min-h-0">
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart data={skills}>
-            <PolarGrid stroke="#E7E6DF" />
-            <PolarAngleAxis dataKey="name" tick={{ fontSize: 11, fill: "#6B7280" }} />
-            <Radar
-              name="Skill"
-              dataKey="value"
-              stroke="#1F6F5C"
-              fill="#1F6F5C"
-              fillOpacity={0.35}
-            />
-          </RadarChart>
-        </ResponsiveContainer>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="font-semibold text-gray-700 text-lg">
+          Skills Developed
+        </h2>
       </div>
+
+      <ResponsiveContainer width="100%" height={220}>
+        <RadarChart data={skills}>
+          <PolarGrid stroke="#E5E7EB" />
+
+          <PolarAngleAxis
+            dataKey="name"
+            tick={{ fontSize: 12, fill: "#6B7280" }}
+          />
+
+          <Radar
+            name="Skill"
+            dataKey="value"
+            stroke="#3B82F6"
+            fill="#3B82F6"
+            fillOpacity={0.4}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
     </motion.div>
   );
 };

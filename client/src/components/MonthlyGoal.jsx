@@ -22,46 +22,42 @@ const MonthlyGoal = ({ data, refresh }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="h-full bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] flex flex-col justify-between"
+      className="bg-white p-5 rounded-2xl shadow-md hover:shadow-lg transition"
     >
-      <div>
-        <h3 className="text-[#16211D]/60 font-medium text-sm mb-2">Monthly goal</h3>
+      <h3 className="font-semibold text-gray-700 text-lg mb-3">Monthly Goal</h3>
 
-        <div className="flex gap-2 mb-3">
-          <input
-            type="number"
-            placeholder="Hours"
-            value={goalInput}
-            onChange={(e) => setGoalInput(e.target.value)}
-            className="border border-[#16211D]/15 rounded-lg px-3 py-1.5 text-sm w-full bg-[#F4F5F0] focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
-          />
+      <div className="flex gap-2 mb-4">
+        <input
+          type="number"
+          placeholder="Hours"
+          value={goalInput}
+          onChange={(e) => setGoalInput(e.target.value)}
+          className="border rounded-lg px-3 py-1 text-sm w-full"
+        />
 
-          <button
-            onClick={saveGoal}
-            className="bg-[#1F6F5C] hover:bg-[#175447] text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-colors shrink-0"
-          >
-            Save
-          </button>
-        </div>
+        <button
+          onClick={saveGoal}
+          className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm"
+        >
+          Save
+        </button>
       </div>
 
-      <div>
-        <div className="w-full bg-[#16211D]/10 rounded-full h-2 overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.8 }}
-            className="bg-[#EAF3EF]0 h-2"
-          />
-        </div>
-
-        <p className="text-xs text-[#16211D]/50 mt-2">
-          {data.completed} / {data.goal} hrs
-        </p>
+      <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.8 }}
+          className="bg-green-500 h-2"
+        />
       </div>
+
+      <p className="text-xs text-gray-600 mt-2">
+        {data.completed} / {data.goal} hrs
+      </p>
     </motion.div>
   );
 };

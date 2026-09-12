@@ -40,62 +40,58 @@ const EntryModal = ({ close, refresh, edit }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-[#16211D]/50 backdrop-blur-sm flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
       onClick={close}
     >
       <motion.form
         onSubmit={submit}
         onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, scale: 0.94, y: 16 }}
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.25 }}
-        className="bg-white rounded-[1.1rem] shadow-2xl w-[380px] p-6"
+        className="bg-white rounded-2xl shadow-xl w-[380px] p-6"
       >
-        <h2 className="font-display text-xl font-semibold text-[#16211D] mb-5">
-          {edit ? "Edit learning entry" : "Log a learning session"}
+        <h2 className="text-xl font-semibold text-gray-800 mb-5">
+          {edit ? "Edit Learning Entry" : "Add Learning Entry"}
         </h2>
 
-        <label className="text-xs font-medium text-[#16211D]/50 mb-1 block">Topic / skill</label>
         <input
-          placeholder="e.g. React hooks"
+          placeholder="Topic / Skill"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           required
-          className="border border-[#16211D]/15 rounded-lg w-full px-3 py-2 mb-3 bg-[#F4F5F0] focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
+          className="border border-gray-300 rounded-lg w-full px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <label className="text-xs font-medium text-[#16211D]/50 mb-1 block">Date</label>
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
-          className="border border-[#16211D]/15 rounded-lg w-full px-3 py-2 mb-3 bg-[#F4F5F0] focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
+          className="border border-gray-300 rounded-lg w-full px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <label className="text-xs font-medium text-[#16211D]/50 mb-1 block">Study hours</label>
         <input
           type="number"
-          step="0.5"
-          placeholder="e.g. 1.5"
+          placeholder="Study Hours"
           value={hours}
           onChange={(e) => setHours(e.target.value)}
           required
-          className="border border-[#16211D]/15 rounded-lg w-full px-3 py-2 mb-6 bg-[#F4F5F0] focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
+          className="border border-gray-300 rounded-lg w-full px-3 py-2 mb-5 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         <div className="flex justify-end gap-3">
           <button
             type="button"
             onClick={close}
-            className="px-4 py-2 rounded-lg border border-[#16211D]/15 text-[#16211D]/70 hover:bg-[#F4F5F0] transition-colors"
+            className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
           >
             Cancel
           </button>
 
           <button
             type="submit"
-            className="px-4 py-2 rounded-lg bg-[#1F6F5C] text-white font-medium hover:bg-[#175447] transition-colors"
+            className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
           >
             Save
           </button>

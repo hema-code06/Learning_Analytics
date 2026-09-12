@@ -34,16 +34,16 @@ const StudyTimeChart = ({ data = [] }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="h-full bg-white p-5 rounded-[1.1rem] shadow-[0_1px_2px_rgba(22,33,29,0.04),0_8px_24px_-12px_rgba(22,33,29,0.18)] flex flex-col"
+      className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition"
     >
-      <div className="flex justify-between items-center mb-3">
-        <h3 className="font-display font-semibold text-[#16211D]">Study time</h3>
+      <div className="flex justify-between items-center mb-5">
+        <h3 className="font-semibold text-gray-700 text-lg">Study Time</h3>
 
         <select
-          className="border border-[#16211D]/15 text-xs px-2.5 py-1 rounded-md bg-[#F4F5F0] text-[#16211D]/70 focus:outline-none focus:ring-2 focus:ring-[#2F9E82]"
+          className="border border-gray-300 text-sm px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={mode}
           onChange={(e) => setMode(e.target.value)}
         >
@@ -53,44 +53,39 @@ const StudyTimeChart = ({ data = [] }) => {
         </select>
       </div>
 
-      <div className="flex-1 min-h-0">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={renderData}>
-            <defs>
-              <linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#D9A441" />
-                <stop offset="100%" stopColor="#C4872B" />
-              </linearGradient>
-            </defs>
+      <ResponsiveContainer width="100%" height={220}>
+        <BarChart data={renderData}>
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false}
+            stroke="#e5e7eb"
+          />
 
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E7E6DF" />
+          <XAxis
+            dataKey="period"
+            tick={{ fontSize: 12 }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis tick={{ fontSize: 12 }} axisLine={false} tickLine={false} />
 
-            <XAxis
-              dataKey="period"
-              tick={{ fontSize: 11, fill: "#8A9089" }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <YAxis tick={{ fontSize: 11, fill: "#8A9089" }} axisLine={false} tickLine={false} />
+          <Tooltip
+            cursor={{ fill: "#f3f4f6" }}
+            contentStyle={{
+              borderRadius: "8px",
+              border: "none",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            }}
+          />
 
-            <Tooltip
-              cursor={{ fill: "#F4F5F0" }}
-              contentStyle={{
-                borderRadius: "10px",
-                border: "1px solid #E7E6DF",
-                fontSize: 13,
-              }}
-            />
-
-            <Bar
-              dataKey="hours"
-              fill="url(#barFill)"
-              radius={[6, 6, 0, 0]}
-              animationDuration={700}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+          <Bar
+            dataKey="hours"
+            fill="#3B82F6"
+            radius={[6, 6, 0, 0]}
+            animationDuration={800}
+          />
+        </BarChart>
+      </ResponsiveContainer>
     </motion.div>
   );
 };
